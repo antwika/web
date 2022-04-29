@@ -15,9 +15,9 @@ const HomePage: NextPage = () => {
       <main className={styles.main}>
         <Image className={styles.fadeIn} src="/logotype.png" alt="Antwika Logo" width={128} height={128} />
         <h1>
-          <TypedText text="Welcome to" rate={20} startDelay={15+5} />
+          <TypedText text="Welcome to" rate={20} startDelay={35+5} />
           {' '}
-          <strong><TypedText text="Antwika" rate={20} startDelay={15+25} /></strong>
+          <strong><TypedText text="Antwika" rate={20} startDelay={35+25} /></strong>
         </h1>
       </main>
     </>
