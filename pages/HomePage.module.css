@@ -9,11 +9,11 @@
   background-color: #121218;
 }
 
-.fadeIn {
-  animation: fadeIn ease 2s;
+.logoFadeIn {
+  animation: logoFadeInKeyframes ease 2s;
 }
 
-@keyframes fadeIn {
+@keyframes logoFadeInKeyframes {
   0% { opacity:0; }
   50% { opacity:0; }
   100% { opacity:1; }

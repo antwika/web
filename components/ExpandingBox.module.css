@@ -1,0 +1,31 @@
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+.hiddenContent {
+  visibility: hidden;
+}
+
+.visibleContent {
+  visibility: visible;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.box {
+  background-color: #222;
+  animation: boxKeyframes ease 1s;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes boxKeyframes {
+  0% { width: 0%; height: 0%; }
+  50% { width: 5%; height: 100%; }
+  100% { width: 100%; height: 100%; }
+}
