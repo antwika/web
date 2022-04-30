@@ -18,3 +18,17 @@
   50% { opacity:0; }
   100% { opacity:1; }
 }
+
+.loginGridContainer {
+  animation: logoGridContainerKeyframes ease 0.2s;
+  display: grid;
+  grid-template-columns: auto;
+  grid-gap: 8px;
+  padding: 16px 24px;
+}
+
+@keyframes logoGridContainerKeyframes {
+  0% { opacity:0; }
+  50% { opacity:0; }
+  100% { opacity:1; }
+}

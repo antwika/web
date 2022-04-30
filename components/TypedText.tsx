@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import useTick from "../hooks/useTick";
+import useTypedText from "../hooks/useTypedText";
 import styles from './TypedText.module.css';
 
 type Props = {
@@ -9,19 +8,12 @@ type Props = {
 }
 
 const TypedText: React.FC<Props> = ({ text, rate, startDelay }) => {
-  const tick = useTick(rate, startDelay);
-  const [currentText, setCurrentText] = useState('');
-
-  useEffect(() => {
-    if (tick >= 0 && tick <= text.length) {
-      setCurrentText(text.slice(0, tick))
-    }
-  }, [text, tick]); 
+  const typedText = useTypedText(text, rate, startDelay);
 
   return (
     <div className={styles.container}>
       <div className={styles.hiddenContent}>{text}</div>
-      <div className={styles.visibleContent}>{currentText}</div>
+      <div className={styles.visibleContent}>{typedText}</div>
     </div>
   );
 }

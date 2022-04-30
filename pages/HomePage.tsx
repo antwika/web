@@ -4,6 +4,8 @@ import Image from 'next/image'
 import ExpandingBox from '../components/ExpandingBox'
 import Logotype from '../components/Logotype'
 import TypedText from '../components/TypedText'
+import Button from '../components/ui/Button'
+import TextInput from '../components/ui/TextInput'
 import styles from './HomePage.module.css'
 
 const HomePage: NextPage = () => {
@@ -23,27 +25,34 @@ const HomePage: NextPage = () => {
           {' '}
           <strong><TypedText text="Antwika" rate={20} startDelay={5+25} /></strong>
         </h1>
-        <ExpandingBox startDelay={1800}>
-          <div style={{
-            padding: '8px 24px',
-            lineHeight: 1.5,
-          }}>
-            <div style={{ display: 'flex', justifyContent: 'center'}}>
-              <a href="https://github.com/antwika/">
-                <i>
-                  <TypedText text="https://github.com/antwika/" rate={40} startDelay={0} />
-                </i>
-              </a>
-            </div>
-            <div>
-              <a href="https://sonarcloud.io/organizations/antwika/">
-                <i>
-                  <TypedText text="https://sonarcloud.io/organizations/antwika/" rate={40} startDelay={5} />
-                </i>
-              </a>
-            </div>
-          </div>
+        <ExpandingBox startDelay={2000}>
+          <div className={styles.loginGridContainer}>
+            <TextInput type="text" placeholder='Username...'/>
+            <TextInput type="password" placeholder='Password...' />
+            <Button type="submit" label="Log in" onClick={() => {
+              console.log('clicked');
+            }} />
+           </div>
         </ExpandingBox>
+        <div style={{
+          padding: '16px',
+          lineHeight: 1.5,
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'center'}}>
+            <a href="https://github.com/antwika/">
+              <i>
+                <TypedText text="https://github.com/antwika/" rate={40} startDelay={170} />
+              </i>
+            </a>
+          </div>
+          <div>
+            <a href="https://sonarcloud.io/organizations/antwika/">
+              <i>
+                <TypedText text="https://sonarcloud.io/organizations/antwika/" rate={40} startDelay={170+5} />
+              </i>
+            </a>
+          </div>
+        </div>
       </main>
     </>
   )
