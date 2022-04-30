@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import ExpandingBox from '../components/ExpandingBox'
+import Logotype from '../components/Logotype'
 import TypedText from '../components/TypedText'
 import styles from './HomePage.module.css'
 
@@ -14,13 +15,15 @@ const HomePage: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <Image className={styles.logoFadeIn} src="/logotype.png" alt="Antwika Logo" width={128} height={128} />
+        <div className={styles.logoFadeIn}>
+          <Logotype />
+        </div>
         <h1>
-          <TypedText text="Welcome to" rate={20} startDelay={35+5} />
+          <TypedText text="Welcome to" rate={20} startDelay={5+5} />
           {' '}
-          <strong><TypedText text="Antwika" rate={20} startDelay={35+25} /></strong>
+          <strong><TypedText text="Antwika" rate={20} startDelay={5+25} /></strong>
         </h1>
-        <ExpandingBox startDelay={4500}>
+        <ExpandingBox startDelay={1800}>
           <div style={{
             padding: '8px 24px',
             lineHeight: 1.5,

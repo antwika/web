@@ -10,7 +10,7 @@
 }
 
 .logoFadeIn {
-  animation: logoFadeInKeyframes ease 2s;
+  animation: logoFadeInKeyframes ease 0.5s;
 }
 
 @keyframes logoFadeInKeyframes {

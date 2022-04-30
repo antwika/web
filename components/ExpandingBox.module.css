@@ -17,7 +17,7 @@
 }
 
 .box {
-  background-color: #222;
+  background-color: rgba(87, 101, 110, 0.1);
   animation: boxKeyframes ease 1s;
   overflow: hidden;
   width: 100%;
