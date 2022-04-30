@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import ExpandingBox from '../components/ExpandingBox'
 import Logotype from '../components/Logotype'
 import TypedText from '../components/TypedText'
