@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "name": "web",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "scripts": {
     "dev": "next dev",
