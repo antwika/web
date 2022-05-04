@@ -6,8 +6,11 @@ import TypedText from '../components/TypedText'
 import Button from '../components/ui/Button'
 import TextInput from '../components/ui/TextInput'
 import styles from './HomePage.module.css'
+import { useIntl } from 'react-intl';
 
 const HomePage: NextPage = () => {
+  const intl = useIntl();
+
   return (
     <>
       <Head>
@@ -20,15 +23,13 @@ const HomePage: NextPage = () => {
           <Logotype />
         </div>
         <h1>
-          <TypedText text="Welcome to" rate={20} startDelay={5+5} />
-          {' '}
-          <strong><TypedText text="Antwika" rate={20} startDelay={5+25} /></strong>
+          <TypedText text={intl.formatMessage({ id: 'welcome_to' }, { name: 'Antwika' })} rate={20} startDelay={5+5} />
         </h1>
         <ExpandingBox startDelay={2000}>
           <div className={styles.loginGridContainer}>
-            <TextInput type="text" placeholder='Username...'/>
-            <TextInput type="password" placeholder='Password...' />
-            <Button type="submit" label="Log in" onClick={() => {
+            <TextInput type="text" placeholder={`${intl.formatMessage({ id: 'username' })}...`} />
+            <TextInput type="password" placeholder={`${intl.formatMessage({ id: 'password' })}...`} />
+            <Button type="submit" label={`${intl.formatMessage({ id: 'log_in' })}`} onClick={() => {
               console.log('clicked');
             }} />
            </div>
