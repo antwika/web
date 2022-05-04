@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import HomePage from './HomePage'
+import HomePage from '../components/HomePage'
 import { useRouter } from 'next/router'
 
 import { IntlProvider } from 'react-intl';
