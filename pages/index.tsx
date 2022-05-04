@@ -1,26 +1,21 @@
 import type { NextPage } from 'next'
 import HomePage from './HomePage'
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useRouter } from 'next/router'
 
 import { IntlProvider } from 'react-intl';
 import { LOCALES } from "../i18n/locales";
 import { MESSAGES } from "../i18n/messages";
 
-const locale = 'en-US';
-// const locale = 'sv-SE';
-// const locale = 'ko-KR';
-
 const RootPage: NextPage = () => {
+  const router = useRouter();
+  const locale = router.locale || 'en-US';
+
   return (
     <IntlProvider
-      messages={MESSAGES[locale]}
+      messages={MESSAGES[ locale ]}
       locale={locale}
       defaultLocale={LOCALES.ENGLISH}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-        </Routes>
-      </BrowserRouter>
+        <HomePage />
     </IntlProvider>
   );
 }
