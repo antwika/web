@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/antwika/web/compare/v0.0.2...v0.0.3) (2022-05-05)
+
+
+### Features
+
+* basic route-based internationalization support (e.g. '/sv-SE' or '/ko-KR') ([a6ca760](https://github.com/antwika/web/commit/a6ca760f06076e30f04dc07c586a4ce948eedbbc))
+* support <strong> tags in i18n messages ([16cc27d](https://github.com/antwika/web/commit/16cc27d6388fcb1071cc8623cefaa7050d8249ed))
+
+
+### Bug Fixes
+
+* **deps:** update dependency next to v12.1.6 ([5718680](https://github.com/antwika/web/commit/5718680a7baee710214774787109660f10821e56))
+* rename MyApp to be consistent with file name ([07102c9](https://github.com/antwika/web/commit/07102c913c05f6be251e7595bf56136a405d81ec))
+
 ### 0.0.2 (2022-04-30)
 
 
