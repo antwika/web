@@ -9,13 +9,17 @@ import { MESSAGES } from "../i18n/messages";
 const RootPage: NextPage = () => {
   const router = useRouter();
   const locale = router.locale || 'en-US';
-
+  
   return (
     <IntlProvider
       messages={MESSAGES[ locale ]}
       locale={locale}
-      defaultLocale={LOCALES.ENGLISH}>
-        <HomePage />
+      defaultLocale={LOCALES.ENGLISH}
+      defaultRichTextElements={{
+        strong: (chunks) => (<strong>{chunks}</strong>)
+      }}
+    >
+      <HomePage />
     </IntlProvider>
   );
 }
