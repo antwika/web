@@ -1,0 +1,9 @@
+export const BASE_URL = 'http://localhost:3000'; // TODO: Fetch from react app params
+export const IDP_URL = 'http://localhost:4000'; // TODO: Fetch from react app params or user choice
+export const AUTH_ENDPOINT = '/oidc/auth'; // TODO: Discover this endpoint via resource: ${idpUrl}/.well-known/openid-configuration.
+export const TOKEN_ENDPOINT = '/oidc/token'; // TODO: Discover this endpoint via resource: ${idpUrl}/.well-known/openid-configuration.
+export const CLIENT_ID = 'web'; // TODO: Fetch from react app params
+export const CLIENT_SECRET = 'app'; // TODO: Fetch from react app params
+export const RESPONSE_TYPE = 'code'; // TODO: Fetch from react app params
+export const SCOPE = 'openid'; // TODO: Fetch from react app params
+export const TOKEN_URL = `${IDP_URL}${TOKEN_ENDPOINT}`;
