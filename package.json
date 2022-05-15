@@ -27,7 +27,7 @@
     "eslint": "8.15.0",
     "eslint-config-next": "12.1.6",
     "husky": "8.0.1",
-    "standard-version": "9.3.2",
+    "standard-version": "9.5.0",
     "typescript": "4.6.4"
   },
   "repository": "git@github.com:antwika/web.git",
