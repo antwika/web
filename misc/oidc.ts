@@ -1,4 +1,32 @@
 import { AUTH_ENDPOINT, BASE_URL, CLIENT_ID, IDP_URL, RESPONSE_TYPE, SCOPE } from "./config";
+import { exportJWK, generateKeyPair, JWK, KeyLike, SignJWT } from "jose";
+import { v4 as uuid } from 'uuid';
+
+export type DPoPKeyPair = {
+  privateKey: KeyLike,
+  publicKey: JWK,
+}
+
+export const generateDPoPKeyPair = async (): Promise<DPoPKeyPair> => {
+  const { privateKey, publicKey } = await generateKeyPair('ES256', { crv: 'P-256' });
+  const dpopKeyPair = {
+    privateKey,
+    publicKey: await exportJWK(publicKey),
+  };
+  dpopKeyPair.publicKey.alg = 'ES256';
+  return dpopKeyPair;
+}
+
+export const generateDPoPProof = async (dpopKeyPair: DPoPKeyPair, method: string, url: string) => {
+  return new SignJWT({
+    htm: method,
+    htu: url,
+  }).setProtectedHeader({
+    typ: 'dpop+jwt',
+    alg: 'ES256',
+    jwk: dpopKeyPair.publicKey,
+  }).setIssuedAt().setJti(uuid()).sign(dpopKeyPair.privateKey);
+}
 
 const sha256 = (plain: string) => {
   const encoder = new TextEncoder();
@@ -34,8 +62,14 @@ export const generateCodeVerifier = () => {
 export const generateRedirectUri = (locale: string) => `${BASE_URL}/${locale}/oidc/cb`;
 
 export const generateAuthUrl = (locale: string, codeChallenge: string) => {
+  if (!CLIENT_ID) {
+    console.error('Can not generate auth url because CLIENT_ID is not defined');
+    return;
+  }
+
   const url = new URL(AUTH_ENDPOINT, IDP_URL);
   const searchParams = new URLSearchParams({
+    audience: 'web',
     client_id: CLIENT_ID,
     response_type: RESPONSE_TYPE,
     scope: SCOPE,
@@ -44,4 +78,16 @@ export const generateAuthUrl = (locale: string, codeChallenge: string) => {
     redirect_uri: generateRedirectUri(locale),
   });
   return `${url.toString()}?${searchParams.toString()}`;
+}
+
+export const authFetch = async (dpopKeyPair: DPoPKeyPair, url: string, method: string, body?: string) => {
+  const dpopProof = await generateDPoPProof(dpopKeyPair, method, url);
+  return fetch(url, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'DPoP': dpopProof,
+    },
+    body: body,
+  });
 }

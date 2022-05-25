@@ -1,0 +1,11 @@
+{
+  "welcome_to": "<strong>{name}</strong>에 온 걸 환영합니다",
+  "welcome": "환영합니다",
+  "username": "유저네임",
+  "password": "비밀번호",
+  "log_in": "로그인",
+  "nickname": "별명",
+  "first_name": "이름",
+  "last_name": "성",
+  "email": "이메일"
+}

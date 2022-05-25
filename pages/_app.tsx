@@ -1,11 +1,12 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { IntlProvider } from 'react-intl'
-import { MESSAGES } from '../i18n/messages'
 import { useRouter } from 'next/router';
-import { LOCALES } from '../i18n/locales';
+import { LOCALES, MESSAGES } from '../misc/locales';
 import { store } from '../redux/store';
 import { Provider } from 'react-redux';
+import { AuthProvider } from '../context/AuthContext';
+import Layout from '../components/Layout';
 
 function _app({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -14,14 +15,18 @@ function _app({ Component, pageProps }: AppProps) {
   return <>
     <Provider store={store}>
       <IntlProvider
-        messages={MESSAGES[ locale ]}
+        messages={MESSAGES[locale]}
         locale={locale}
-        defaultLocale={LOCALES.ENGLISH}
+        defaultLocale={'en-US'}
         defaultRichTextElements={{
           strong: (chunks) => (<strong>{chunks}</strong>)
         }}
       >
-        <Component {...pageProps} />
+        <AuthProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </AuthProvider>
       </IntlProvider>
     </Provider>
   </>
