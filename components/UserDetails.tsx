@@ -1,11 +1,18 @@
 import { useIntl } from "react-intl";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { doLogout } from "../redux/features/auth/authSlice";
 import { RootState } from "../redux/store";
 import ExpandingBox from "./ExpandingBox";
+import Button from "./ui/Button";
 
 const UserDetails = () => {
   const auth = useSelector((state: RootState) => state.auth);
   const intl = useIntl();
+  const dispatch = useDispatch();
+  
+  const logOut = () => {
+    dispatch<any>(doLogout());
+  }
 
   return (
     <ExpandingBox startDelay={24}>
@@ -24,6 +31,11 @@ const UserDetails = () => {
         </div>
         <div>
           {intl.formatMessage({ id: 'email' })}: <strong>{ auth.user?.email }</strong>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'row', marginTop: 8 }}>
+          <div>
+            <Button preset="medium" type="submit" onClick={() => logOut()}>{intl.formatMessage({ id: 'log_out' })}</Button>
+          </div>
         </div>
       </div>
     </ExpandingBox>

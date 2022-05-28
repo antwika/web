@@ -1,19 +1,27 @@
 import styles from './Button.module.css';
 
+type Preset = 'large' | 'medium' | 'small';
+
 type Props = {
-  label: string;
-  type: 'button' | 'submit' | 'reset' | undefined;
-  onClick: () => void;
+  preset?: Preset,
+  children: any,
+  type: 'button' | 'submit' | 'reset' | undefined,
+  onClick: () => void,
 }
 
-const Button: React.FC<Props> = ({ type, label, onClick }) => {
+const Button: React.FC<Props> = ({ preset, type, children, onClick }) => {
+  const presetButtonStyle = styles[`preset__button__${preset}`]
   return (
     <>
-      <button className={styles.button} type={type} onClick={() => onClick()}>
-        {'> ' + label}
+      <button className={styles.button + ' ' + presetButtonStyle} type={type} onClick={() => onClick()}>
+        {children}
       </button>
     </>
   )
+}
+
+Button.defaultProps = {
+  preset: 'medium',
 }
 
 export default Button;

@@ -1,5 +1,5 @@
-import { AUTH_ENDPOINT, BASE_URL, CLIENT_ID, IDP_URL, RESPONSE_TYPE, SCOPE } from "./config";
-import { exportJWK, generateKeyPair, JWK, KeyLike, SignJWT } from "jose";
+import { BASE_URL, CLIENT_ID, CLIENT_SECRET, IDP_URL, RESPONSE_TYPE, SCOPE } from "./config";
+import { exportJWK, generateKeyPair, importJWK, JWK, jwtVerify, KeyLike, SignJWT } from "jose";
 import { v4 as uuid } from 'uuid';
 
 export type DPoPKeyPair = {
@@ -61,13 +61,18 @@ export const generateCodeVerifier = () => {
 
 export const generateRedirectUri = (locale: string) => `${BASE_URL}/${locale}/oidc/cb`;
 
-export const generateAuthUrl = (locale: string, codeChallenge: string) => {
+export const generateAuthUrl = async (locale: string) => {
+  const codeVerifier = generateCodeVerifier();
+  localStorage.setItem('codeVerifier', JSON.stringify(codeVerifier));
+  const codeChallenge = await generateCodeChallengeFromVerifier(codeVerifier);
+
+  const { authorization_endpoint: authorizationEndpoint } = await requestOidcConfiguration();
+
   if (!CLIENT_ID) {
-    console.error('Can not generate auth url because CLIENT_ID is not defined');
-    return;
+    throw new Error('Can not generate auth url because CLIENT_ID is not defined');
   }
 
-  const url = new URL(AUTH_ENDPOINT, IDP_URL);
+  const url = new URL(authorizationEndpoint, IDP_URL);
   const searchParams = new URLSearchParams({
     audience: 'web',
     client_id: CLIENT_ID,
@@ -83,11 +88,81 @@ export const generateAuthUrl = (locale: string, codeChallenge: string) => {
 export const authFetch = async (dpopKeyPair: DPoPKeyPair, url: string, method: string, body?: string) => {
   const dpopProof = await generateDPoPProof(dpopKeyPair, method, url);
   return fetch(url, {
-    method: 'post',
+    method: method,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       'DPoP': dpopProof,
     },
     body: body,
   });
+}
+
+export const requestOidcConfiguration = async () => {
+  const dpopKeyPair = await generateDPoPKeyPair();
+  const response = await authFetch(dpopKeyPair, `${IDP_URL}/.well-known/openid-configuration`, 'GET');
+  return response.json();
+}
+
+export const requestToken = async (code: string, codeVerifier: string, locale: string) => {
+  try {
+    const { token_endpoint: tokenEndpoint } = await requestOidcConfiguration();
+
+    if (!CLIENT_ID) {
+      console.error('Can not request token because CLIENT_ID is not defined');
+      return;
+    }
+
+    if (!CLIENT_SECRET) {
+      console.error('Can not request token because CLIENT_SECRET is not defined');
+      return;
+    }
+
+    const dpopKeyPair = await generateDPoPKeyPair();
+    const searchParams = new URLSearchParams({
+      grant_type: 'authorization_code',
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+      code: code,
+      code_verifier: codeVerifier,
+      redirect_uri: generateRedirectUri(locale),
+    });
+
+    const response = await authFetch(dpopKeyPair, tokenEndpoint, 'POST', searchParams.toString());
+    const body = await response.json();
+    return body;
+  } catch (err) {
+    console.log('Failed to fetch token, error:', err);
+    return false;
+  }
+}
+
+export const verifyToken = async (accessToken: string) => {
+  try {
+    const dpopKeyPair = await generateDPoPKeyPair();
+
+    const { jwks_uri: jwksUri } = await requestOidcConfiguration();
+
+    const response = await authFetch(dpopKeyPair, jwksUri, 'GET');
+    const json = await response.json();
+    const { keys } = json;
+
+    const promises = keys.map(async (key: any) => {
+      try {
+        const jwk = await importJWK(key);
+        await jwtVerify(accessToken, jwk, {
+          issuer: 'http://localhost:3000/oidc',
+          audience: 'web'
+        });
+        return true;
+      } catch (err) {
+        return false;
+      }
+    });
+    const isValid = await Promise.any(promises);
+
+    return isValid;
+  } catch (err) {
+    console.log('Failed to verify token, error:', err);
+    return false;
+  }
 }

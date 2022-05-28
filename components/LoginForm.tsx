@@ -8,34 +8,19 @@ import { useRouter } from "next/router";
 const LoginForm = () => {
   const router = useRouter();
   const intl = useIntl();
-  const [codeVerifier, setCodeVerifier] = useState<string | null>(null);
 
   const onSubmit = async () => {
-    const codeVerifier = generateCodeVerifier();
-    localStorage.setItem('codeVerifier', JSON.stringify(codeVerifier));
-    setCodeVerifier(codeVerifier);
-  }
-
-  useEffect(() => {
-    if (!codeVerifier) return;
-    
-    const redirectToAuthUrl = async () => {
-      const codeChallenge = await generateCodeChallengeFromVerifier(codeVerifier);
-      const authUrl = generateAuthUrl(intl.locale, codeChallenge);
-      if (!authUrl) {
-        console.log('Failed to generate an auth url');
-        return;
-      }
-      router.push(authUrl);
+    try {
+      router.push(await generateAuthUrl(intl.locale));
+    } catch (err) {
+      console.error('Failed to navigate to auth url. Error:', err);
     }
-
-    redirectToAuthUrl();
-  }, [router, intl, codeVerifier]);
+  }
 
   return (
     <>
       <div className={styles.loginGridContainer}>
-        <Button type="submit" label={`${intl.formatMessage({ id: 'log_in' })}`} onClick={onSubmit} />
+        <Button preset="large" type="submit" onClick={onSubmit}>{intl.formatMessage({ id: 'log_in' })}</Button>
       </div>
       <div style={{
         padding: '16px',

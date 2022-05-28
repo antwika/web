@@ -4,6 +4,7 @@
   "username": "유저네임",
   "password": "비밀번호",
   "log_in": "로그인",
+  "log_out": "로그 아웃",
   "nickname": "별명",
   "first_name": "이름",
   "last_name": "성",

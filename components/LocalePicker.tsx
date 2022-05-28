@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Button from "./ui/Button";
 
 type Props = {
   locales: string[],
@@ -13,9 +14,13 @@ const LocalePicker: React.FC<Props> = ({ locales }) => {
   }
 
   return (
-    <>
-      {locales.map(locale => (<a key={`locale_${locale}`} onClick={() => changeLocale(locale)}>{locale}{' '}</a>))}
-    </>
+    <div style={{ display: 'flex', flexDirection: 'row' }}>
+      {locales.map(locale => (
+        <div key={`locale_${locale}`}>
+          <Button preset="small" type="submit" onClick={() => changeLocale(locale)}>{locale}</Button>
+        </div>
+      ))}
+    </div>
   );
 }
 
