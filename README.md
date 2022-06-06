@@ -10,6 +10,7 @@
 
 Create an `.env` file at project root:
 ```
+NEXT_PUBLIC_IDP_URL=http://localhost:4000
 NEXT_PUBLIC_CLIENT_ID=example-client-id
 REACT_APP_CLIENT_SECRET=example-client-secret
 ```

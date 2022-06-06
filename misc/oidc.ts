@@ -150,7 +150,7 @@ export const verifyToken = async (accessToken: string) => {
       try {
         const jwk = await importJWK(key);
         await jwtVerify(accessToken, jwk, {
-          issuer: 'http://localhost:3000/oidc',
+          issuer: `${IDP_URL}/oidc`,
           audience: 'web'
         });
         return true;
