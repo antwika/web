@@ -1,27 +1,28 @@
 import type { NextPage } from 'next'
-import HomePage from '../components/HomePage'
-import { useRouter } from 'next/router'
+import { useIntl } from 'react-intl'
+import { useSelector } from 'react-redux'
+import LoginForm from '../components/LoginForm'
+import Logotype from '../components/Logotype'
+import UserDetails from '../components/UserDetails'
+import { RootState } from '../redux/store'
+import styles from './index.module.css'
 
-import { IntlProvider } from 'react-intl';
-import { LOCALES } from "../i18n/locales";
-import { MESSAGES } from "../i18n/messages";
+const IndexPage: NextPage = () => {
+  const auth = useSelector((state: RootState) => state.auth);
+  const intl = useIntl();
 
-const RootPage: NextPage = () => {
-  const router = useRouter();
-  const locale = router.locale || 'en-US';
-  
   return (
-    <IntlProvider
-      messages={MESSAGES[ locale ]}
-      locale={locale}
-      defaultLocale={LOCALES.ENGLISH}
-      defaultRichTextElements={{
-        strong: (chunks) => (<strong>{chunks}</strong>)
-      }}
-    >
-      <HomePage />
-    </IntlProvider>
-  );
+    <>
+      <div>
+        <Logotype />
+      </div>
+      <h1>
+        {intl.formatMessage({ id: 'welcome_to' }, { name: 'Antwika' })}
+      </h1>
+      {auth.user && <UserDetails />}
+      {!auth.user && <LoginForm />}
+    </>
+  )
 }
 
-export default RootPage;
+export default IndexPage;
