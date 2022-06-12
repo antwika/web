@@ -74,20 +74,24 @@ export const generateCodeVerifier = () => {
     return Array.from(array, (dec) => ("0" + dec.toString(16)).substr(-2)).join("");
 }
 
-export const generateRedirectUri = (locale: string) => `${BASE_URL}/${locale}/oidc/cb`;
+export const generateRedirectUri = (baseUrl: string, locale?: string) => {
+  let uri = baseUrl;
+  if (locale !== undefined && locale.length > 0) uri += `/${locale}`;
+  return `${uri}/oidc/cb`;
+}
 
-export const generateAuthUrl = async (locale: string) => {
+export const generateAuthUrl = async (fetch: any, baseUrl: string, idpUrl: string, locale: string) => {
   const codeVerifier = generateCodeVerifier();
   localStorage.setItem('codeVerifier', JSON.stringify(codeVerifier));
   const codeChallenge = await generateCodeChallengeFromVerifier(codeVerifier);
 
-  const { authorization_endpoint: authorizationEndpoint } = await requestOidcConfiguration();
+  const { authorization_endpoint: authorizationEndpoint } = await requestOidcConfiguration(fetch, idpUrl);
 
   if (!CLIENT_ID) {
     throw new Error('Can not generate auth url because CLIENT_ID is not defined');
   }
 
-  const url = new URL(authorizationEndpoint, IDP_URL);
+  const url = new URL(authorizationEndpoint, idpUrl);
   const searchParams = new URLSearchParams({
     audience: 'web',
     client_id: CLIENT_ID,
@@ -95,12 +99,12 @@ export const generateAuthUrl = async (locale: string) => {
     scope: SCOPE,
     code_challenge: codeChallenge,
     code_challenge_method: 'S256',
-    redirect_uri: generateRedirectUri(locale),
+    redirect_uri: generateRedirectUri(baseUrl, locale),
   });
   return `${url.toString()}?${searchParams.toString()}`;
 }
 
-export const authFetch = async (dpopKeyPair: DPoPKeyPair, url: string, method: string, body?: string) => {
+export const authFetch = async (fetch: any, dpopKeyPair: DPoPKeyPair, url: string, method: string, body?: string) => {
   const dpopProof = await generateDPoPProof(dpopKeyPair, method, url);
   return fetch(url, {
     method: method,
@@ -112,15 +116,15 @@ export const authFetch = async (dpopKeyPair: DPoPKeyPair, url: string, method: s
   });
 }
 
-export const requestOidcConfiguration = async () => {
+export const requestOidcConfiguration = async (fetch: any, idpUrl: string) => {
   const dpopKeyPair = await generateDPoPKeyPair();
-  const response = await authFetch(dpopKeyPair, `${IDP_URL}/.well-known/openid-configuration`, 'GET');
+  const response = await authFetch(fetch, dpopKeyPair, `${idpUrl}/.well-known/openid-configuration`, 'GET');
   return response.json();
 }
 
-export const requestToken = async (code: string, codeVerifier: string, locale: string) => {
+export const requestToken = async (idpUrl: string, code: string, codeVerifier: string, locale: string) => {
   try {
-    const { token_endpoint: tokenEndpoint } = await requestOidcConfiguration();
+    const { token_endpoint: tokenEndpoint } = await requestOidcConfiguration(fetch, idpUrl);
 
     if (!CLIENT_ID) {
       console.error('Can not request token because CLIENT_ID is not defined');
@@ -139,7 +143,7 @@ export const requestToken = async (code: string, codeVerifier: string, locale: s
       client_secret: CLIENT_SECRET,
       code: code,
       code_verifier: codeVerifier,
-      redirect_uri: generateRedirectUri(locale),
+      redirect_uri: generateRedirectUri(BASE_URL, locale),
     });
 
     const response = await authFetch(dpopKeyPair, tokenEndpoint, 'POST', searchParams.toString());
@@ -151,13 +155,13 @@ export const requestToken = async (code: string, codeVerifier: string, locale: s
   }
 }
 
-export const verifyToken = async (accessToken: string) => {
+export const verifyToken = async (fetch: any, accessToken: string) => {
   try {
     const dpopKeyPair = await generateDPoPKeyPair();
 
-    const { jwks_uri: jwksUri } = await requestOidcConfiguration();
+    const { jwks_uri: jwksUri } = await requestOidcConfiguration(fetch);
 
-    const response = await authFetch(dpopKeyPair, jwksUri, 'GET');
+    const response = await authFetch(fetch, dpopKeyPair, jwksUri, 'GET');
     const json = await response.json();
     const { keys } = json;
 
