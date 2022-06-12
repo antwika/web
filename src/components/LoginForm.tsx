@@ -3,6 +3,7 @@ import { generateAuthUrl } from "../misc/oidc";
 import Button from "./ui/Button";
 import styles from './LoginForm.module.css'
 import { useRouter } from "next/router";
+import { BASE_URL, IDP_URL } from "../misc/config";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -10,7 +11,7 @@ const LoginForm = () => {
 
   const onSubmit = async () => {
     try {
-      router.push(await generateAuthUrl(intl.locale));
+      router.push(await generateAuthUrl(fetch, BASE_URL, IDP_URL, intl.locale));
     } catch (err) {
       console.error('Failed to navigate to auth url. Error:', err);
     }
