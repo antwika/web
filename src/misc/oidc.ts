@@ -122,7 +122,7 @@ export const requestOidcConfiguration = async (fetch: any, idpUrl: string) => {
   return response.json();
 }
 
-export const requestToken = async (idpUrl: string, code: string, codeVerifier: string, locale: string) => {
+export const requestToken = async (fetch: any, idpUrl: string, code: string, codeVerifier: string, locale: string) => {
   try {
     const { token_endpoint: tokenEndpoint } = await requestOidcConfiguration(fetch, idpUrl);
 

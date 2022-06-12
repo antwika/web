@@ -1,3 +1,4 @@
+import { IDP_URL } from "../../misc/config";
 import { requestToken } from "../../misc/oidc";
 
 const Token = async (req: any, res: any) => {
@@ -5,7 +6,7 @@ const Token = async (req: any, res: any) => {
     const body = JSON.parse(req.body);
     const { locale, code, codeVerifier } = body;
 
-    const token = await requestToken(code, codeVerifier, locale);
+    const token = await requestToken(fetch, IDP_URL, code, codeVerifier, locale);
     if (!token) {
       throw new Error('Failed to obtain token from IDP');
     }
