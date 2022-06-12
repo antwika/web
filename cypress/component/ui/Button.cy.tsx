@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 import Button from '../../../components/ui/Button';
 
 describe('Button.cy.ts', () => {
