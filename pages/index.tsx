@@ -5,9 +5,8 @@ import LoginForm from '../components/LoginForm'
 import Logotype from '../components/Logotype'
 import UserDetails from '../components/UserDetails'
 import { RootState } from '../redux/store'
-import styles from './index.module.css'
 
-const IndexPage: NextPage = () => {
+const Index: NextPage = () => {
   const auth = useSelector((state: RootState) => state.auth);
   const intl = useIntl();
 
@@ -25,4 +24,4 @@ const IndexPage: NextPage = () => {
   )
 }
 
-export default IndexPage;
+export default Index;

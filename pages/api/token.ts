@@ -1,6 +1,6 @@
 import { requestToken } from "../../misc/oidc";
 
-const TokenHandler = async (req: any, res: any) => {
+const Token = async (req: any, res: any) => {
   try {
     const body = JSON.parse(req.body);
     const { locale, code, codeVerifier } = body;
@@ -17,4 +17,4 @@ const TokenHandler = async (req: any, res: any) => {
   }
 }
 
-export default TokenHandler;
+export default Token;

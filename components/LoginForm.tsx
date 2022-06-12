@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
-import { generateAuthUrl, generateCodeChallengeFromVerifier, generateCodeVerifier } from "../misc/oidc";
+import { generateAuthUrl } from "../misc/oidc";
 import Button from "./ui/Button";
 import styles from './LoginForm.module.css'
 import { useRouter } from "next/router";

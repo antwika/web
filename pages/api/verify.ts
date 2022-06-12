@@ -1,6 +1,6 @@
 import { verifyToken } from "../../misc/oidc";
 
-const VerifyHandler = async (req: any, res: any) => {
+const Verify = async (req: any, res: any) => {
   try {
     const body = JSON.parse(req.body);
     const { accessToken } = body;
@@ -16,4 +16,4 @@ const VerifyHandler = async (req: any, res: any) => {
   }
 }
 
-export default VerifyHandler;
+export default Verify;

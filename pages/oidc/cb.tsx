@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { handleAccessToken } from '../../redux/features/auth/authSlice';
 
-const CbPage: NextPage = () => {
+const Cb: NextPage = () => {
   const intl = useIntl();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -49,4 +49,4 @@ const CbPage: NextPage = () => {
   );
 }
 
-export default CbPage;
+export default Cb;

@@ -4,8 +4,6 @@ import LocalePicker from "./LocalePicker";
 import { LOCALES } from '../misc/locales';
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { useEffect } from "react";
-import ActivityIndicator from "./ActivityIndicator";
 import ActivityIndicatorOverlay from "./ActivityIndicatorOverlay";
 
 type Props = {
