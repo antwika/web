@@ -44,7 +44,7 @@ const base64urlencode = (a: ArrayBuffer) => {
   return btoa(str)
     .replace(/\+/g, "-")
     .replace(/\//g, "_")
-    .replace(/=+$/, "");
+    .replace(/=$/g, "");
 };
 
 export const generateCodeChallengeFromVerifier = async (codeVerifier: string) => {
