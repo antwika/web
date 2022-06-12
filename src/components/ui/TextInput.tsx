@@ -7,7 +7,7 @@ type Props = {
   type: string;
 }
 
-const TextInput: React.FC<Props> = ({ type, text, label, placeholder }) => {
+const TextInput: React.FC<Props> = ({ type, label, placeholder }) => {
   return (
     <>
       { label && <div className={styles.label}>{label}</div> }
