@@ -4,6 +4,7 @@ import { doLogout } from "../redux/features/auth/authSlice";
 import { RootState } from "../redux/store";
 import ExpandingBox from "./ExpandingBox";
 import Button from "./ui/Button";
+import styles from './UserDetails.module.css';
 
 const UserDetails = () => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -15,7 +16,7 @@ const UserDetails = () => {
   }
 
   return (
-    <ExpandingBox startDelay={24}>
+    <div className={styles.container}>
       <div style={{ padding: 16, paddingTop: 0 }}>
         <h1>
           {intl.formatMessage({ id: 'welcome' })}
@@ -38,7 +39,7 @@ const UserDetails = () => {
           </div>
         </div>
       </div>
-    </ExpandingBox>
+    </div>
   );
 };
 

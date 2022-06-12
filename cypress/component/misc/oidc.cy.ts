@@ -1,3 +1,4 @@
+import { CLIENT_ID, CLIENT_SECRET, IDP_URL } from '../../../src/misc/config';
 import {
   sha256,
   base64urlencode,
@@ -6,8 +7,10 @@ import {
   generateCodeVerifier,
   generateCodeChallengeFromVerifier,
   generateRedirectUri,
+  generateAuthUrl,
   requestOidcConfiguration,
   authFetch,
+  requestToken,
 } from '../../../src/misc/oidc';
 
 describe('Oidc', () => {
@@ -67,7 +70,52 @@ describe('Oidc', () => {
     const mockFetch = () => ({
       json: async () => ({ foo: 'bar' }),
     });
-    const result = await requestOidcConfiguration(mockFetch, 'http://idp.example.com');
+    const result = await requestOidcConfiguration(mockFetch, IDP_URL);
     expect(result).to.deep.equal({ foo: 'bar' });
+  });
+
+  it('fails to request token if client id is undefined', async () => {
+    const codeVerifier = generateCodeVerifier();
+    const codeChallenge = await generateCodeChallengeFromVerifier(codeVerifier);
+    // TODO: Utilize something like jest mockImplementationOnce or a function generator(?)
+    // to generate different responses from the sequentially called mock function.
+    const mockFetch = () => ({
+      json: async () => ({
+        token_endpoint: '/token', // TODO: This should happen the first time the mockFetch function is called.
+        access_token: 'example.access.token' // TODO: This should happen the second time the mockFetch function is called.
+      })
+    });
+    const result = await requestToken(mockFetch, 'https://idp.example.com', codeChallenge, codeVerifier, 'sv-SE', undefined, 'test-client-secret');
+    expect(result).to.equal(false);
+  });
+
+  it('fails to request token if client secret is undefined', async () => {
+    const codeVerifier = generateCodeVerifier();
+    const codeChallenge = await generateCodeChallengeFromVerifier(codeVerifier);
+    // TODO: Utilize something like jest mockImplementationOnce or a function generator(?)
+    // to generate different responses from the sequentially called mock function.
+    const mockFetch = () => ({
+      json: async () => ({
+        token_endpoint: '/token', // TODO: This should happen the first time the mockFetch function is called.
+        access_token: 'example.access.token' // TODO: This should happen the second time the mockFetch function is called.
+      })
+    });
+    const result = await requestToken(mockFetch, 'https://idp.example.com', codeChallenge, codeVerifier, 'sv-SE', 'test-client-id', undefined);
+    expect(result).to.equal(false);
+  });
+
+  it('can request a token', async () => {
+    const codeVerifier = generateCodeVerifier();
+    const codeChallenge = await generateCodeChallengeFromVerifier(codeVerifier);
+    // TODO: Utilize something like jest mockImplementationOnce or a function generator(?)
+    // to generate different responses from the sequentially called mock function.
+    const mockFetch = () => ({
+      json: async () => ({
+        token_endpoint: '/token', // TODO: This should happen the first time the mockFetch function is called.
+        access_token: 'example.access.token' // TODO: This should happen the second time the mockFetch function is called.
+      })
+    });
+    const { access_token } = await requestToken(mockFetch, 'https://idp.example.com', codeChallenge, codeVerifier, 'sv-SE', 'test-client-id', 'test-client-secret');
+    expect(access_token).to.deep.equal('example.access.token');
   });
 });
