@@ -1,4 +1,3 @@
-import { IDP_URL } from '../../../src/misc/config';
 import {
   sha256,
   base64urlencode,
@@ -7,7 +6,6 @@ import {
   generateCodeVerifier,
   generateCodeChallengeFromVerifier,
   generateRedirectUri,
-  generateAuthUrl,
   requestOidcConfiguration,
   authFetch,
 } from '../../../src/misc/oidc';
@@ -59,17 +57,17 @@ describe('Oidc', () => {
 
   it('can perform an authenticated fetch', async () => {
     const mockFetch = () => ({
-      json: async () => '{"foo":"bar"}',
+      json: async () => ({ foo: 'bar' }),
     });
     const response = await authFetch(mockFetch, await generateDPoPKeyPair(), 'http://example.com/test', 'POST');
-    expect(await response.json()).to.equal('{"foo":"bar"}');
+    expect(await response.json()).to.deep.equal({ foo: 'bar' });
   });
 
   it('can request oidc configuration from identity provider', async () => {
     const mockFetch = () => ({
-      json: async () => '{"foo":"bar"}',
+      json: async () => ({ foo: 'bar' }),
     });
-    const result = await requestOidcConfiguration(mockFetch, IDP_URL);
-    expect(result).to.equal('{"foo":"bar"}');
+    const result = await requestOidcConfiguration(mockFetch, 'http://idp.example.com');
+    expect(result).to.deep.equal({ foo: 'bar' });
   });
 });

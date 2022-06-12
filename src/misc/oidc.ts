@@ -122,16 +122,16 @@ export const requestOidcConfiguration = async (fetch: any, idpUrl: string) => {
   return response.json();
 }
 
-export const requestToken = async (fetch: any, idpUrl: string, code: string, codeVerifier: string, locale: string) => {
+export const requestToken = async (fetch: any, idpUrl: string, code: string, codeVerifier: string, locale: string, clientId?: string, clientSecret?: string) => {
   try {
     const { token_endpoint: tokenEndpoint } = await requestOidcConfiguration(fetch, idpUrl);
 
-    if (!CLIENT_ID) {
+    if (!clientId) {
       console.error('Can not request token because CLIENT_ID is not defined');
       return;
     }
 
-    if (!CLIENT_SECRET) {
+    if (!clientSecret) {
       console.error('Can not request token because CLIENT_SECRET is not defined');
       return;
     }
@@ -139,8 +139,8 @@ export const requestToken = async (fetch: any, idpUrl: string, code: string, cod
     const dpopKeyPair = await generateDPoPKeyPair();
     const searchParams = new URLSearchParams({
       grant_type: 'authorization_code',
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
+      client_id: clientId,
+      client_secret: clientSecret,
       code: code,
       code_verifier: codeVerifier,
       redirect_uri: generateRedirectUri(BASE_URL, locale),
