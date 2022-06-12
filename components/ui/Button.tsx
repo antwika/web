@@ -13,7 +13,12 @@ const Button: React.FC<Props> = ({ preset, type, children, onClick }) => {
   const presetButtonStyle = styles[`preset__button__${preset}`]
   return (
     <>
-      <button className={styles.button + ' ' + presetButtonStyle} type={type} onClick={() => onClick()}>
+      <button
+        data-cy='ui-button'
+        className={styles.button + ' ' + presetButtonStyle}
+        type={type}
+        onClick={() => onClick()}
+      >
         {children}
       </button>
     </>
