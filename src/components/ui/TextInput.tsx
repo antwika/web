@@ -10,8 +10,13 @@ type Props = {
 const TextInput: React.FC<Props> = ({ type, label, placeholder }) => {
   return (
     <>
-      { label && <div className={styles.label}>{label}</div> }
-      <input className={styles.input} type={type} placeholder={placeholder} />
+      { label && <div data-cy='ui-text-input-label' className={styles.label}>{label}</div> }
+      <input
+        data-cy='ui-text-input'
+        className={styles.input}
+        type={type}
+        placeholder={placeholder}
+      />
     </>
   )
 }

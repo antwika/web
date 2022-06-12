@@ -1,6 +1,6 @@
 import Button from '../../../src/components/ui/Button';
 
-describe('Button.cy.ts', () => {
+describe('Button', () => {
   it('calls the onClick callback when clicked', () => {
     const onClick = cy.stub().as('onClick');
     cy.mount(
