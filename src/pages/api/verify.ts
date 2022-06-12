@@ -1,3 +1,4 @@
+import { IDP_URL } from "../../misc/config";
 import { verifyToken } from "../../misc/oidc";
 
 const Verify = async (req: any, res: any) => {
@@ -5,7 +6,7 @@ const Verify = async (req: any, res: any) => {
     const body = JSON.parse(req.body);
     const { accessToken } = body;
 
-    const isValid = await verifyToken(accessToken);
+    const isValid = await verifyToken(fetch, IDP_URL, accessToken);
 
     res.json({
       valid: isValid,

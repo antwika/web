@@ -155,11 +155,11 @@ export const requestToken = async (idpUrl: string, code: string, codeVerifier: s
   }
 }
 
-export const verifyToken = async (fetch: any, accessToken: string) => {
+export const verifyToken = async (fetch: any, idpUrl: string, accessToken: string) => {
   try {
     const dpopKeyPair = await generateDPoPKeyPair();
 
-    const { jwks_uri: jwksUri } = await requestOidcConfiguration(fetch);
+    const { jwks_uri: jwksUri } = await requestOidcConfiguration(fetch, idpUrl);
 
     const response = await authFetch(fetch, dpopKeyPair, jwksUri, 'GET');
     const json = await response.json();
