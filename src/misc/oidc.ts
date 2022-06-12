@@ -1,5 +1,20 @@
-import { BASE_URL, CLIENT_ID, CLIENT_SECRET, IDP_URL, RESPONSE_TYPE, SCOPE } from "./config";
-import { exportJWK, generateKeyPair, importJWK, JWK, jwtVerify, KeyLike, SignJWT } from "jose";
+import {
+  BASE_URL,
+  CLIENT_ID,
+  CLIENT_SECRET,
+  IDP_URL,
+  RESPONSE_TYPE,
+  SCOPE,
+} from './config';
+import {
+  exportJWK,
+  generateKeyPair,
+  importJWK,
+  JWK,
+  jwtVerify,
+  KeyLike,
+  SignJWT,
+} from 'jose';
 import { v4 as uuid } from 'uuid';
 
 export type DPoPKeyPair = {
@@ -28,13 +43,13 @@ export const generateDPoPProof = async (dpopKeyPair: DPoPKeyPair, method: string
   }).setIssuedAt().setJti(uuid()).sign(dpopKeyPair.privateKey);
 }
 
-const sha256 = (plain: string) => {
+export const sha256 = (plain: string) => {
   const encoder = new TextEncoder();
   const data = encoder.encode(plain);
   return window.crypto.subtle.digest("SHA-256", data);
 };
 
-const base64urlencode = (a: ArrayBuffer) => {
+export const base64urlencode = (a: ArrayBuffer) => {
   var str = "";
   var bytes = new Uint8Array(a);
   var len = bytes.byteLength;
