@@ -58,6 +58,31 @@ describe('Oidc', () => {
     expect(generateRedirectUri('https://example.com', 'sv-SE')).to.equal('https://example.com/sv-SE/oidc/cb');
   });
 
+  it('can generate an auth url', async () => {
+    const mockFetch = () => ({
+      json: async () => ({
+        authorization_endpoint: '/auth',
+      })
+    });
+    const authUrl = await generateAuthUrl(mockFetch, 'https://this.example.com', 'https://idp.example.com', 'sv-SE', 'test-client-id');
+    expect(authUrl.startsWith('https://idp.example.com/auth?audience=web&client_id=test-client-id&response_type=code&scope=openid&code_challenge=')).to.be.true;
+    expect(authUrl.endsWith('&code_challenge_method=S256&redirect_uri=https%3A%2F%2Fthis.example.com%2Fsv-SE%2Foidc%2Fcb')).to.be.true;
+  });
+
+  it('throws if client id is missing when trying to generate an auth url', async () => {
+    const mockFetch = () => ({
+      json: async () => ({
+        authorization_endpoint: '/auth',
+      })
+    });
+    try {
+      await generateAuthUrl(mockFetch, 'https://this.example.com', 'https://idp.example.com', 'sv-SE', undefined)
+      expect.fail("Should have thrown an error");
+    } catch (err: any) {
+      expect(err.message).to.equal('Can not generate auth url because client id is not defined');
+    }
+  });
+
   it('can perform an authenticated fetch', async () => {
     const mockFetch = () => ({
       json: async () => ({ foo: 'bar' }),

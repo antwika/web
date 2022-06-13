@@ -80,21 +80,21 @@ export const generateRedirectUri = (baseUrl: string, locale?: string) => {
   return `${uri}/oidc/cb`;
 }
 
-export const generateAuthUrl = async (fetch: any, baseUrl: string, idpUrl: string, locale: string) => {
+export const generateAuthUrl = async (fetch: any, baseUrl: string, idpUrl: string, locale: string, clientId?: string) => {
   const codeVerifier = generateCodeVerifier();
   localStorage.setItem('codeVerifier', JSON.stringify(codeVerifier));
   const codeChallenge = await generateCodeChallengeFromVerifier(codeVerifier);
 
   const { authorization_endpoint: authorizationEndpoint } = await requestOidcConfiguration(fetch, idpUrl);
 
-  if (!CLIENT_ID) {
-    throw new Error('Can not generate auth url because CLIENT_ID is not defined');
+  if (!clientId) {
+    throw new Error('Can not generate auth url because client id is not defined');
   }
 
   const url = new URL(authorizationEndpoint, idpUrl);
   const searchParams = new URLSearchParams({
     audience: 'web',
-    client_id: CLIENT_ID,
+    client_id: clientId,
     response_type: RESPONSE_TYPE,
     scope: SCOPE,
     code_challenge: codeChallenge,
