@@ -2,7 +2,6 @@ import { useIntl } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import { doLogout } from "../redux/features/auth/authSlice";
 import { RootState } from "../redux/store";
-import ExpandingBox from "./ExpandingBox";
 import Button from "./ui/Button";
 import styles from './UserDetails.module.css';
 
@@ -16,7 +15,7 @@ const UserDetails = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <div data-cy='user-details' className={styles.container}>
       <div style={{ padding: 16, paddingTop: 0 }}>
         <h1>
           {intl.formatMessage({ id: 'welcome' })}

@@ -3,7 +3,7 @@ import styles from './ActivityIndicatorOverlay.module.css';
 
 const ActivityIndicatorOverlay = () => {
   return (
-  <div className={styles.container}>
+  <div data-cy='activity-indicator-overlay' className={styles.container}>
     <ActivityIndicator />
   </div>
   );

@@ -2,7 +2,7 @@ import styles from './ActivityIndicator.module.css';
 
 const ActivityIndicator = () => {
   return (
-    <div className={styles.activityIndicator}></div>
+    <div data-cy='activity-indicator' className={styles.activityIndicator}></div>
   );
 }
 
