@@ -63,7 +63,7 @@ export const generateCodeChallengeFromVerifier = async (codeVerifier: string) =>
 export const generateCodeVerifier = () => {
   const array = new Uint32Array(56 / 2);
     window.crypto.getRandomValues(array);
-    return Array.from(array, (dec) => ("0" + dec.toString(16)).substr(-2)).join("");
+    return Array.from(array, (dec) => ("0" + dec.toString(16)).slice(-2)).join("");
 }
 
 export const generateRedirectUri = (baseUrl: string, locale?: string) => {
