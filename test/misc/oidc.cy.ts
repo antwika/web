@@ -1,4 +1,4 @@
-import { CLIENT_ID, CLIENT_SECRET, IDP_URL } from '../../src/misc/config';
+import { IDP_URL } from '../../src/misc/config';
 import {
   sha256,
   base64urlencode,
