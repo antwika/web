@@ -1,7 +1,5 @@
 import {
   BASE_URL,
-  CLIENT_ID,
-  CLIENT_SECRET,
   IDP_URL,
   RESPONSE_TYPE,
   SCOPE,
@@ -53,7 +51,7 @@ export const base64urlencode = (a: ArrayBuffer) => {
   const bytes = new Uint8Array(a);
   const len = bytes.byteLength;
   let str = "";
-  for (var i = 0; i < len; i++) {
+  for (let i = 0; i < len; i++) {
     str += String.fromCharCode(bytes[i]);
   }
   return btoa(str)
@@ -64,8 +62,7 @@ export const base64urlencode = (a: ArrayBuffer) => {
 
 export const generateCodeChallengeFromVerifier = async (codeVerifier: string) => {
   const hashed = await sha256(codeVerifier);
-  const base64encoded = base64urlencode(hashed);
-  return base64encoded;
+  return base64urlencode(hashed);
 };
 
 export const generateCodeVerifier = () => {
@@ -147,8 +144,7 @@ export const requestToken = async (fetch: any, idpUrl: string, code: string, cod
     });
 
     const response = await authFetch(fetch, dpopKeyPair, tokenEndpoint, 'POST', searchParams.toString());
-    const body = await response.json();
-    return body;
+    return response.json();
   } catch (err) {
     console.log('Failed to fetch token, error:', err);
     return false;
@@ -177,9 +173,7 @@ export const verifyToken = async (fetch: any, idpUrl: string, accessToken: strin
         return false;
       }
     });
-    const isValid = await Promise.any(promises);
-
-    return isValid;
+    return Promise.any(promises);
   } catch (err) {
     console.log('Failed to verify token, error:', err);
     return false;

@@ -47,7 +47,7 @@ export const handleAccessToken = createAsyncThunk<AuthState, string>(
     if (!isTokenValid) {
       localStorage.removeItem('accessToken');
       return { status: 'loggedOut', accessToken: false, user: null };
-    };
+    }
 
     const user = parseUser(accessToken);
 
