@@ -48,13 +48,8 @@ export const sha256 = (plain: string) => {
 };
 
 export const base64urlencode = (a: ArrayBuffer) => {
-  const bytes = new Uint8Array(a);
-  const len = bytes.byteLength;
-  let str = "";
-  for (let i = 0; i < len; i++) {
-    str += String.fromCharCode(bytes[i]);
-  }
-  return btoa(str)
+  const str = new Uint8Array(a).reduce((acc, byte) => acc + String.fromCharCode(byte), '');
+  return Buffer.from(str, 'binary').toString('base64')
     .replace(/\+/g, "-")
     .replace(/\//g, "_")
     .replace(/=$/g, "");
