@@ -1,4 +1,4 @@
-import Button from './Button';
+import Button from '../../../src/components/ui/Button';
 
 describe('Button', () => {
   it('calls the onClick callback when clicked', () => {

@@ -1,4 +1,4 @@
-import { CLIENT_ID, CLIENT_SECRET, IDP_URL } from './config';
+import { CLIENT_ID, CLIENT_SECRET, IDP_URL } from '../../src/misc/config';
 import {
   sha256,
   base64urlencode,
@@ -11,7 +11,7 @@ import {
   requestOidcConfiguration,
   authFetch,
   requestToken,
-} from './oidc';
+} from '../../src/misc/oidc';
 
 describe('Oidc', () => {
   it('can generate a DPoP proof', async () => {

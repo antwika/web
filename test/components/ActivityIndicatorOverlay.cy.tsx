@@ -1,4 +1,4 @@
-import ActivityIndicatorOverlay from './ActivityIndicatorOverlay';
+import ActivityIndicatorOverlay from '../../src/components/ActivityIndicatorOverlay';
 
 describe('ActivityIndicatorOverlay', () => {
   it('is has an ActivityIndicator child', () => {

@@ -1,4 +1,4 @@
-import ActivityIndicator from './ActivityIndicator';
+import ActivityIndicator from '../../src/components/ActivityIndicator';
 
 describe('ActivityIndicator', () => {
   it('is rendered and visible', () => {

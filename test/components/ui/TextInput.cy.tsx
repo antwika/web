@@ -1,4 +1,4 @@
-import TextInput from './TextInput';
+import TextInput from '../../../src/components/ui/TextInput';
 
 describe('TextInput', () => {
   it('calls the onClick callback when clicked', () => {

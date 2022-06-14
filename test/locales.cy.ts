@@ -1,7 +1,7 @@
 import {
   MESSAGES,
   LOCALES,
-} from './locales';
+} from '../src/misc/locales';
 
 describe('Locales', () => {
   it('has all expected locales', async () => {

@@ -1,4 +1,4 @@
-import Logotype from './Logotype';
+import Logotype from '../../src/components/Logotype';
 
 describe('Logotype', () => {
   it('is rendered and visible', () => {
