@@ -19,7 +19,30 @@ const Index: NextPage = () => {
         {intl.formatMessage({ id: 'welcome_to' }, { name: 'Antwika' })}
       </h1>
       {auth.user && <UserDetails />}
-      {!auth.user && <LoginForm />}
+      {!auth.user && (
+        <>
+          <LoginForm />
+          <div style={{
+            padding: '16px',
+            lineHeight: 1.5,
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'center'}}>
+              <a href="https://github.com/antwika/">
+                <i>
+                  https://github.com/antwika/
+                </i>
+              </a>
+            </div>
+            <div>
+              <a href="https://sonarcloud.io/organizations/antwika/">
+                <i>
+                  https://sonarcloud.io/organizations/antwika/
+                </i>
+              </a>
+            </div>
+          </div>
+        </>
+      )}
     </>
   )
 }
