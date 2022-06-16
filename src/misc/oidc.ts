@@ -1,8 +1,7 @@
 import {
-  BASE_URL,
-  IDP_URL,
-  RESPONSE_TYPE,
-  SCOPE,
+  baseUrl,
+  responseType,
+  scope,
 } from './config';
 import {
   exportJWK,
@@ -87,8 +86,8 @@ export const generateAuthUrl = async (fetch: any, baseUrl: string, idpUrl: strin
   const searchParams = new URLSearchParams({
     audience: 'web',
     client_id: clientId,
-    response_type: RESPONSE_TYPE,
-    scope: SCOPE,
+    response_type: responseType(),
+    scope: scope(),
     code_challenge: codeChallenge,
     code_challenge_method: 'S256',
     redirect_uri: generateRedirectUri(baseUrl, locale),
@@ -135,7 +134,7 @@ export const requestToken = async (fetch: any, idpUrl: string, code: string, cod
       client_secret: clientSecret,
       code: code,
       code_verifier: codeVerifier,
-      redirect_uri: generateRedirectUri(BASE_URL, locale),
+      redirect_uri: generateRedirectUri(baseUrl(), locale),
     });
 
     const response = await authFetch(fetch, dpopKeyPair, tokenEndpoint, 'POST', searchParams.toString());
@@ -160,7 +159,7 @@ export const verifyToken = async (fetch: any, idpUrl: string, accessToken: strin
       try {
         const jwk = await importJWK(key);
         await jwtVerify(accessToken, jwk, {
-          issuer: `${IDP_URL}/oidc`,
+          issuer: `${idpUrl}/oidc`,
           audience: 'web'
         });
         return true;
