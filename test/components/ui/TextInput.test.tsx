@@ -1,6 +1,6 @@
 import TextInput from '../../../src/components/ui/TextInput';
 import "@testing-library/jest-dom";
-import { within, render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 
 describe("TextInput", () => {
   it("defaults to 'text' type", () => {

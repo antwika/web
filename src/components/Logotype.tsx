@@ -1,6 +1,6 @@
 const Logotype = () => {
   return (
-    <svg data-cy='logotype' width="128" height="128">
+    <svg data-testid='logotype' width="128" height="128">
       <mask id="myMask2">
         <circle cx="64" cy="64" r="64" fill="white" />
       </mask>
