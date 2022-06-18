@@ -15,7 +15,7 @@ const LocalePicker: React.FC<Props> = ({ locales }) => {
   }
 
   return (
-    <div className={styles.container}>
+    <div data-testid='locale-picker' className={styles.container}>
       {locales.map(locale => (
         <div key={`locale_${locale}`}>
           <Button preset="small" type="submit" onClick={() => changeLocale(locale)}>{locale}</Button>

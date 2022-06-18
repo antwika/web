@@ -16,23 +16,23 @@ const Layout: React.FC<Props> = ({ children }) => {
   const isLoading = auth.status === 'loggingIn' || auth.status === 'loggingOut';
 
   return (
-    <>
+    <div data-testid='layout'>
       <Head>
         <title>Antwika</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header className={styles.header}>
+      <header data-testid='layout-header' className={styles.header}>
         <LocalePicker locales={LOCALES} />
       </header>
-      <main className={styles.main}>
+      <main data-testid='layout-main' className={styles.main}>
         {!isLoading && (
-          <>
+          <div data-testid='layout-main-content'>
             {children}
-          </>
+          </div>
         )}
         {isLoading && <ActivityIndicatorOverlay />}
       </main>
-    </>
+    </div>
   );
 };
 
