@@ -1,8 +1,4 @@
-import {
-  baseUrl,
-  responseType,
-  scope,
-} from './config';
+import * as config from './config';
 import {
   exportJWK,
   generateKeyPair,
@@ -86,8 +82,8 @@ export const generateAuthUrl = async (fetch: any, baseUrl: string, idpUrl: strin
   const searchParams = new URLSearchParams({
     audience: 'web',
     client_id: clientId,
-    response_type: responseType(),
-    scope: scope(),
+    response_type: config.responseType(),
+    scope: config.scope(),
     code_challenge: codeChallenge,
     code_challenge_method: 'S256',
     redirect_uri: generateRedirectUri(baseUrl, locale),
@@ -134,7 +130,7 @@ export const requestToken = async (fetch: any, idpUrl: string, code: string, cod
       client_secret: clientSecret,
       code: code,
       code_verifier: codeVerifier,
-      redirect_uri: generateRedirectUri(baseUrl(), locale),
+      redirect_uri: generateRedirectUri(config.baseUrl(), locale),
     });
 
     const response = await authFetch(fetch, dpopKeyPair, tokenEndpoint, 'POST', searchParams.toString());
