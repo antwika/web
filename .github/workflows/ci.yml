@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install deps, build and test
+      - name: Install deps and lint
         shell: bash
         run: |
           yarn install --frozen-lockfile
@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install deps, build and test
+      - name: Install deps and test
         shell: bash
         run: |
           yarn install --frozen-lockfile
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install deps, build and test
+      - name: Install deps and build
         shell: bash
         run: |
           yarn install --frozen-lockfile
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install deps, build and test
+      - name: Install test (ignore coverage threshold)
         shell: bash
         run: |
           yarn install --frozen-lockfile
