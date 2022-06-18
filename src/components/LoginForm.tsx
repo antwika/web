@@ -19,7 +19,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <div data-cy='login-form' className={styles.loginGridContainer}>
+      <div data-testid='login-form' className={styles.loginGridContainer}>
         <Button preset="large" type="submit" onClick={onSubmit}>{intl.formatMessage({ id: 'log_in' })}</Button>
       </div>
     </>
