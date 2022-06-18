@@ -38,6 +38,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Install deps, build and test
+        shell: bash
+        run: |
+          yarn install --frozen-lockfile
+          yarn test --coverageThreshold '{}'
       - name: SonarCloud scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
