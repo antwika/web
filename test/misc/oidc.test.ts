@@ -1,5 +1,4 @@
-import * as config from '../../src/misc/config';
-import { generateCodeChallengeFromVerifier, generateDPoPKeyPair, generateDPoPProof } from '../../src/misc/oidc';
+import { generateDPoPKeyPair, generateDPoPProof } from '../../src/misc/oidc';
 
 const v4 = jest.fn();
 
