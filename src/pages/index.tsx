@@ -21,7 +21,7 @@ const Index: NextPage = () => {
       {auth.user && <UserDetails />}
       {!auth.user && (
         <>
-          <LoginForm />
+          <LoginForm onError={(err) => console.log('Login failure:', err) }/>
           <div style={{
             padding: '16px',
             lineHeight: 1.5,
