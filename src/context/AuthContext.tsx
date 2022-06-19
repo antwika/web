@@ -36,7 +36,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   }, [auth.status]);
 
   return (
-    <AuthContext.Provider value={false}>
+    <AuthContext.Provider data-testid='auth-context' value={false}>
       {children}
     </AuthContext.Provider>
   );
