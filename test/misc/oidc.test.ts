@@ -1,4 +1,4 @@
-import { generateDPoPKeyPair, generateDPoPProof } from '../../src/misc/oidc';
+import { authFetch, generateDPoPKeyPair, generateDPoPProof, requestOidcConfiguration } from '../../src/misc/oidc';
 
 const v4 = jest.fn();
 
@@ -33,6 +33,11 @@ jest.mock("jose", () => ({
   SignJWT: jest.fn().mockImplementation(() => { return SignJWT })
 }));
 
+const jsonMock = jest.fn();
+global.fetch = jest.fn(() => Promise.resolve({
+  json: async () => jsonMock(),
+})) as any;
+
 describe('config', () => {
   const env = process.env;
 
@@ -61,5 +66,28 @@ describe('config', () => {
     expect(SignJWT.setJti).toHaveBeenCalledWith('uuid');
     expect(SignJWT.sign).toHaveBeenCalledWith({});
     expect(proof).toBe('proof');
+  });
+
+  it('can perform an authenticated fetch', async () => {
+    const keyPair = await generateDPoPKeyPair();
+    const fetchMock = jest.fn();
+    fetchMock.mockResolvedValue('mock-result');
+    const result = await authFetch(fetchMock, keyPair, 'http://example.com', 'GET');
+    expect(fetchMock).toHaveBeenCalledWith('http://example.com', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'DPoP': 'proof',
+      },
+      body: undefined,
+    });
+    expect(result).toBe('mock-result');
+  });
+
+  it('can request the configuration from an oidc provider', async () => {
+    const fetchMock = jest.fn();
+    fetchMock.mockResolvedValue({ json: () => ({ mock: 'result' }) });
+    const result = await requestOidcConfiguration(fetchMock, 'http://idp.example.com');
+    expect(result).toStrictEqual({ mock: 'result' });
   });
 });
