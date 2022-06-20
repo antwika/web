@@ -1,3 +1,5 @@
 import crypto from 'crypto';
 
-export const getCrypto = () => window !== undefined && window.crypto !== undefined ? window.crypto : crypto;
+const anyCrypto = crypto as any;
+
+export const getCrypto = () => window !== undefined && window.crypto !== undefined ? window.crypto : anyCrypto;
