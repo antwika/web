@@ -96,13 +96,6 @@ export const authSlice = createSlice({
       state.accessToken = false;
       state.user = null;
     });
-    
-    builder.addCase(doLogout.rejected, (state, { error }) => {
-      console.warn('doLogout rejected! Error:', error);
-      state.status = 'loggedOut';
-      state.accessToken = false;
-      state.user = null;
-    });
   }
 })
 
