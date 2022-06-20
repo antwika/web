@@ -5,15 +5,19 @@ import { Provider } from 'react-redux';
 import { store } from '../../src/redux/store';
 import { setAuth } from '../../src/redux/features/auth/authSlice';
 
-const mockRouter = { pathname: '/home', query: {}, asPath: "/home/", push: jest.fn(), replace: jest.fn() };
+const pushMock = jest.fn();
+const replaceMock = jest.fn();
+const useRouterMock = jest.fn();
 
 jest.mock("next/router", () => ({
-  useRouter() {
-    return mockRouter;
-  },
+  useRouter: () => useRouterMock(),
 }));
 
 describe("AuthContext", () => {
+  beforeEach(() => {
+    jest.resetModules()
+  });
+
   it("renders its children", () => {
     store.dispatch(setAuth({
       status: 'loggedIn', 
@@ -36,7 +40,26 @@ describe("AuthContext", () => {
     expect(authContext).toBeInTheDocument();
   });
 
+  it("does not call router.replace if router is undefined", () => {
+    useRouterMock.mockImplementation(() => undefined);
+    render(
+      <Provider store={store}>
+        <AuthProvider>
+          <div data-testid='child'>Foo</div>
+        </AuthProvider>
+      </Provider>
+    );
+    expect(replaceMock).not.toHaveBeenCalled();
+  });
+
   it("redirects to root if auth status is logged out", () => {
+    useRouterMock.mockImplementation(() => ({
+      pathname: '/home',
+      query: {},
+      asPath: "/home/",
+      push: (...args: any) => pushMock(...args),
+      replace: (...args: any) => replaceMock(...args),
+    }));
     store.dispatch(setAuth({
       status: 'loggedOut', 
       accessToken: undefined,
@@ -49,6 +72,6 @@ describe("AuthContext", () => {
         </AuthProvider>
       </Provider>
     );
-    expect(mockRouter.replace).toHaveBeenCalledWith('/');
+    expect(replaceMock).toHaveBeenCalledWith('/');
   });
 });

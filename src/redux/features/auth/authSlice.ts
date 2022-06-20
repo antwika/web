@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { parseUser } from '../../../misc/auth';
 
 const ARBITRARY_RESPONSE_DELAY_MS = 1000;
 
@@ -21,18 +22,6 @@ const initialState: AuthState = {
   user: null,
 };
 
-const parseUser = (accessToken: string): User => {
-  const payload = accessToken.split('.')[1];
-  const decoded = Buffer.from(payload, 'base64').toString('utf8');
-  const { sub, email, firstName, lastName } = JSON.parse(decoded);
-  return {
-    id: sub,
-    email: email,
-    firstName: firstName,
-    lastName: lastName,
-  };
-}
-
 export const handleAccessToken = createAsyncThunk<AuthState, string>(
   'auth/handleAccessToken',
   async (accessToken) => {
@@ -44,6 +33,7 @@ export const handleAccessToken = createAsyncThunk<AuthState, string>(
       }),
     });
     const { valid: isTokenValid } = await response.json();
+    console.log('isTokenValid:', isTokenValid);
     if (!isTokenValid) {
       localStorage.removeItem('accessToken');
       return { status: 'loggedOut', accessToken: false, user: null };
