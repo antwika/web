@@ -9,6 +9,7 @@ import {
   SignJWT,
 } from 'jose';
 import { v4 as uuid } from 'uuid';
+import { getCrypto } from './crypto';
 
 export type DPoPKeyPair = {
   privateKey: KeyLike,
@@ -39,7 +40,7 @@ export const generateDPoPProof = async (dpopKeyPair: DPoPKeyPair, method: string
 export const sha256 = (plain: string) => {
   const encoder = new TextEncoder();
   const data = encoder.encode(plain);
-  return window.crypto.subtle.digest("SHA-256", data);
+  return getCrypto().subtle.digest("SHA-256", data);
 };
 
 export const base64urlencode = (a: ArrayBuffer) => {
@@ -57,7 +58,7 @@ export const generateCodeChallengeFromVerifier = async (codeVerifier: string) =>
 
 export const generateCodeVerifier = () => {
   const array = new Uint32Array(56 / 2);
-    window.crypto.getRandomValues(array);
+    getCrypto().getRandomValues(array);
     return Array.from(array, (dec) => ("0" + dec.toString(16)).slice(-2)).join("");
 }
 
@@ -111,8 +112,6 @@ export const requestOidcConfiguration = async (fetch: any, idpUrl: string) => {
 
 export const requestToken = async (fetch: any, idpUrl: string, code: string, codeVerifier: string, locale: string, clientId?: string, clientSecret?: string) => {
   try {
-    const { token_endpoint: tokenEndpoint } = await requestOidcConfiguration(fetch, idpUrl);
-
     if (!clientId) {
       console.error('Can not request token because clientId is not defined');
       throw new Error('Can not request token because clientId is not defined');
@@ -122,6 +121,8 @@ export const requestToken = async (fetch: any, idpUrl: string, code: string, cod
       console.error('Can not request token because clientSecret is not defined');
       throw new Error('Can not request token because clientSecret is not defined');
     }
+
+    const { token_endpoint: tokenEndpoint } = await requestOidcConfiguration(fetch, idpUrl);
 
     const dpopKeyPair = await generateDPoPKeyPair();
     const searchParams = new URLSearchParams({
