@@ -1,0 +1,45 @@
+.button {
+  background-color: #1e1e2e;
+  border: 2px solid #57656e;
+  border-radius: 6px;
+  color: rgb(187, 187, 187);
+  width: 100%;
+  text-align: left;
+  user-select: none;
+}
+
+.preset__button__small {
+  padding: 6px;
+  padding-bottom: 2px;
+  font-size: 9pt;
+  font-weight: normal;
+}
+
+.preset__button__medium {
+  padding: 8px;
+  padding-bottom: 6px;
+  font-size: 10pt;
+  font-weight: normal;
+}
+
+.preset__button__large {
+  padding: 12px;
+  padding-bottom: 9px;
+  font-size: 12pt;
+  font-weight: bold;
+}
+
+.button:hover {
+  background-color: #393949;
+  color: white;
+}
+
+.button:active {
+  background-color: #15151a;
+  border-color: #2a2a35;
+  color: rgb(136, 136, 136);
+}
+
+.label {
+  font-size: 12px;
+}

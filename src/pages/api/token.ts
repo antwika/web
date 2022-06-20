@@ -1,0 +1,21 @@
+import { clientId, clientSecret, idpUrl } from "../../misc/config";
+import { requestToken } from "../../misc/oidc";
+
+const Token = async (req: any, res: any) => {
+  try {
+    const body = JSON.parse(req.body);
+    const { locale, code, codeVerifier } = body;
+
+    const token = await requestToken(fetch, idpUrl(), code, codeVerifier, locale, clientId(), clientSecret());
+    if (!token) {
+      throw new Error('Failed to obtain token from IDP');
+    }
+
+    res.json(token);
+  } catch (err) {
+    console.log('Failed to fetch token, error:', err);
+    res.status(500).end('Internal server error');
+  }
+}
+
+export default Token;

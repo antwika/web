@@ -7,6 +7,9 @@
 
 # testing
 /coverage
+.nyc_output
+cypress/downloads
+cypress/videos
 
 # next.js
 /.next/
@@ -26,6 +29,7 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # local env files
+.env
 .env*.local
 
 # vercel
