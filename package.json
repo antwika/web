@@ -15,7 +15,7 @@
     "release": "standard-version"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.8.1",
+    "@reduxjs/toolkit": "1.8.2",
     "jose": "^4.8.1",
     "next": "12.1.6",
     "react": "18.2.0",
