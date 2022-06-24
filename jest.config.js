@@ -11,6 +11,7 @@ const customJestConfig = {
   collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*{.ts,.tsx}',
+    '!src/pages/_app.tsx',
   ],
   coverageThreshold: {
     './src': {

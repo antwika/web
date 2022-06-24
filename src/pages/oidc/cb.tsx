@@ -1,47 +1,60 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
-import { handleAccessToken } from '../../redux/features/auth/authSlice';
+import { parseUser } from '../../misc/auth';
+import { setAuth } from '../../redux/features/auth/authSlice';
+import { trpc } from '../../utils/trpc';
 
 const Cb: NextPage = () => {
   const intl = useIntl();
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const [locale, setLocale] = useState('');
+  const [code, setCode] = useState('');
+  const [codeVerifier, setCodeVerifier] = useState('');
+
   useEffect(() => {
-    (async () => {
-      try {
-        const item = localStorage.getItem('codeVerifier')
-        if (!item) throw new Error('Expected codeVerifier in localStorage, but none was found');
-        const codeVerifier = JSON.parse(item);
+    const item = localStorage.getItem('codeVerifier')
+    if (!item) return; // throw new Error('Expected codeVerifier in localStorage, but none was found');
+    const codeVerifier = JSON.parse(item);
+    setCodeVerifier(codeVerifier);
+    localStorage.removeItem('codeVerifier');
+  }, []);
+  
+  useEffect(() => {
+    if (!router) return;
+    const { code } = router.query;
+    if (!code) return;
+    if (Array.isArray(code)) throw new Error('Unexpected array type in "code" query parameter');
+    setCode(code);
+  }, [router?.query]);
+  
+  useEffect(() => {
+    if (!intl) return;
+    if (!intl.locale) return;
+    setLocale(intl.locale);
+  }, [intl.locale]);
 
-        const { code } = router.query;
-        if (!code) return;
-        if (Array.isArray(code)) throw new Error('Unexpected array type in "code" query parameter');
+  const { isIdle, data, isLoading } = trpc.useQuery(['requestToken', { locale, code, codeVerifier }], {
+    enabled: locale !== '' && code !== '' && codeVerifier !== '',
+  });
 
-        const response = await fetch(`/api/token`, {
-          method: 'POST',
-          body: JSON.stringify({
-            locale: intl.locale,
-            code: code,
-            codeVerifier: codeVerifier,
-          }),
-        });
-        const json = await response.json();
-        const { access_token: accessToken } = json;
-        if (!accessToken) throw new Error('Expected "accessToken" to be defined, but it is not');
+  useEffect(() => {
+    if (!data) return;
+    const { token } = data;
+    if (!token) return;
+    
+    const accessToken = token as string;
+    console.log('accessToken', accessToken);
 
-        localStorage.removeItem('codeVerifier');
-        localStorage.setItem('accessToken', JSON.stringify(accessToken));
-        dispatch<any>(handleAccessToken(accessToken));
-        router.replace('/home');
-      } catch (err) {
-        console.error('Failed to handle callback. Error:', err);
-      }
-    })();
-  }, [router.query]);
+    localStorage.setItem('accessToken', JSON.stringify(accessToken));
+    const user = parseUser(accessToken);
+    dispatch(setAuth({ status: 'loggedIn', accessToken, user }));
+    router.replace('/home');
+  }, [data]);
 
   return (
     <>
