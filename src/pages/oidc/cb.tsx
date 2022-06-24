@@ -30,7 +30,7 @@ const Cb: NextPage = () => {
     if (!code) return;
     if (Array.isArray(code)) throw new Error('Unexpected array type in "code" query parameter');
     setCode(code);
-  }, [router.query]);
+  }, [router?.query]);
   
   useEffect(() => {
     if (!intl) return;

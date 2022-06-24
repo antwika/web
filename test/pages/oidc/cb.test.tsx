@@ -5,19 +5,25 @@ import { generateCodeVerifier } from '../../../src/misc/oidc';
 import Cb from '../../../src/pages/oidc/cb';
 import { store } from '../../../src/redux/store';
 
+const pushMock = jest.fn();
+const replaceMock = jest.fn();
 const useRouterMock = jest.fn();
 jest.mock("next/router", () => ({
   useRouter: () => useRouterMock(),
 }));
-useRouterMock.mockImplementation(() => ({ pathname: '/home', query: {}, asPath: "/home/", push: jest.fn() }));
-
-const mockIntl = { formatMessage: jest.fn() };
-
-jest.mock("react-intl", () => ({
-  useIntl() {
-    return mockIntl;
-  },
+useRouterMock.mockImplementation(() => ({
+  pathname: '/home',
+  query: {},
+  asPath: "/home/",
+  push: (...args: any) => pushMock(...args),
+  replace: (...args: any) => replaceMock(...args),
 }));
+
+const useIntlMock = jest.fn();
+jest.mock("react-intl", () => ({
+  useIntl: (...args: any) => useIntlMock(...args),
+}));
+useIntlMock.mockImplementation(() => ({ locale: 'sv-se', formatMessage: jest.fn() }));
 
 const generateAuthUrlMock = jest.fn();
 const generateCodeVerifierMock = jest.fn();
@@ -92,10 +98,51 @@ describe('cb', () => {
     );
   });
 
+  it('redirects user to /home if there is a valid access token', () => {
+    useQueryMock.mockReturnValue({ isIdle: false, data: { token: 'an.example.token' }, isLoading: false });
+    render(
+      <Provider store={store}>
+        <AuthProvider>
+          <Cb />
+        </AuthProvider>
+      </Provider>
+    );
+    expect(replaceMock).toHaveBeenCalledWith('/home');
+  });
+
   it('sets code if the router.query contains that param', () => {
-    useRouterMock.mockImplementation(() => ({ pathname: '/home', query: { code: 'test-code' }, asPath: "/home/", push: jest.fn() }));
+    useRouterMock.mockImplementation(() => ({
+      pathname: '/home',
+      query: { code: 'test-code' },
+      asPath: "/home/",
+      push: (...args: any) => pushMock(...args),
+    }));
     useQueryMock.mockReturnValue({ isIdle: false, data: { valid: true }, isLoading: false });
     getItemMock.mockReturnValueOnce(null);
+    render(
+      <Provider store={store}>
+        <AuthProvider>
+          <Cb />
+        </AuthProvider>
+      </Provider>
+    );
+    expect(useQueryMock).toHaveBeenCalledWith(["requestToken", {"code": "", "codeVerifier": "", "locale": ""}], {"enabled": false});
+  });
+
+  it('does not do much if router is undefined', () => {
+    useRouterMock.mockReturnValue(undefined);
+    render(
+      <Provider store={store}>
+        <AuthProvider>
+          <Cb />
+        </AuthProvider>
+      </Provider>
+    );
+    expect(useQueryMock).toHaveBeenCalledWith(["requestToken", {"code": "", "codeVerifier": "", "locale": ""}], {"enabled": false});
+  });
+
+  it('does not do much if intl is undefined', () => {
+    useIntlMock.mockReturnValueOnce(undefined);
     render(
       <Provider store={store}>
         <AuthProvider>
