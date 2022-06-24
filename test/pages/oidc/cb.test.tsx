@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { AuthProvider } from '../../../src/context/AuthContext';
+import { generateCodeVerifier } from '../../../src/misc/oidc';
 import Cb from '../../../src/pages/oidc/cb';
 import { store } from '../../../src/redux/store';
 
@@ -21,9 +22,10 @@ jest.mock("react-intl", () => ({
 }));
 
 const generateAuthUrlMock = jest.fn();
-
+const generateCodeVerifierMock = jest.fn();
 jest.mock('../../../src/misc/oidc', () => ({
   generateAuthUrl: () => generateAuthUrlMock(),
+  generateCodeVerifier: () => generateCodeVerifierMock(),
 }));
 
 const jsonMock = jest.fn();
@@ -38,9 +40,35 @@ jest.mock('../../../src/utils/trpc', () => ({
   },
 }));
 
+const getItemMock = jest.fn();
+
+const parseUserMock = jest.fn();
+jest.mock('../../../src/misc/auth', () => ({
+  parseUser: () => parseUserMock(),
+}));
+parseUserMock.mockImplementation(() => ({
+  id: 'FooBar',
+  email: 'foo@bar.com',
+  firstName: 'Foo',
+  lastName: 'Bar',
+}));
+
 describe('cb', () => {
+  let originalGetItem: any;
+
+  beforeAll(() => {
+    originalGetItem = global.Storage.prototype.getItem;
+    global.Storage.prototype.getItem = () => getItemMock();
+  });
+
+  afterAll(() => {
+    global.Storage.prototype.getItem = originalGetItem;
+  });
+
   it('does something', () => {
+    const codeVerifier = generateCodeVerifier();
     useQueryMock.mockReturnValue({ isIdle: false, data: { valid: true }, isLoading: false });
+    getItemMock.mockReturnValue(JSON.stringify(['0', '1', '0', '2', '0', '3']));
     render(
       <Provider store={store}>
         <AuthProvider>
