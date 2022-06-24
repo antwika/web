@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { parseUser } from "../misc/auth";
 import { doLogout, setAuth } from "../redux/features/auth/authSlice";
@@ -20,16 +19,16 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   const auth = useSelector((state: RootState) => state.auth);
   const [accessToken, setAccessToken] = useState<string>('');
   
-  const { isIdle, data, isLoading } = trpc.useQuery(['verifyToken', { accessToken }], {
+  const { data } = trpc.useQuery(['verifyToken', { accessToken }], {
     enabled: accessToken !== '',
   });
 
   useEffect(() => {
     const item = localStorage.getItem('accessToken');
     if (!item) return;
-    const accessToken = JSON.parse(item) as string;
-    if (accessToken) {
-      setAccessToken(accessToken);
+    const token = JSON.parse(item) as string;
+    if (token) {
+      setAccessToken(token);
     }
   }, []);
 

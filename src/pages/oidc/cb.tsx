@@ -18,17 +18,17 @@ const Cb: NextPage = () => {
 
   useEffect(() => {
     const item = localStorage.getItem('codeVerifier')
-    if (!item) return; // throw new Error('Expected codeVerifier in localStorage, but none was found');
-    const codeVerifier = JSON.parse(item);
-    setCodeVerifier(codeVerifier);
+    if (!item) return;
+    const verifier = JSON.parse(item);
+    setCodeVerifier(verifier);
     localStorage.removeItem('codeVerifier');
   }, []);
   
   useEffect(() => {
     if (!router) return;
-    const { code } = router.query;
-    if (!code) return;
-    if (Array.isArray(code)) throw new Error('Unexpected array type in "code" query parameter');
+    const { code: codeParam } = router.query;
+    if (!codeParam) return;
+    if (Array.isArray(codeParam)) throw new Error('Unexpected array type in "code" query parameter');
     setCode(code);
   }, [router?.query]);
   
@@ -38,7 +38,7 @@ const Cb: NextPage = () => {
     setLocale(intl.locale);
   }, [intl.locale]);
 
-  const { isIdle, data, isLoading } = trpc.useQuery(['requestToken', { locale, code, codeVerifier }], {
+  const { data } = trpc.useQuery(['requestToken', { locale, code, codeVerifier }], {
     enabled: locale !== '' && code !== '' && codeVerifier !== '',
   });
 
