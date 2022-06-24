@@ -36,8 +36,10 @@ export const appRouter = trpc
 // export type definition of API
 export type AppRouter = typeof appRouter;
 
+export const createContext = () => null;
+
 // export API handler
 export default trpcNext.createNextApiHandler({
   router: appRouter,
-  createContext: () => null,
+  createContext,
 });
