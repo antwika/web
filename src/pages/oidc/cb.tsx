@@ -29,7 +29,7 @@ const Cb: NextPage = () => {
     const { code: codeParam } = router.query;
     if (!codeParam) return;
     if (Array.isArray(codeParam)) throw new Error('Unexpected array type in "code" query parameter');
-    setCode(code);
+    setCode(codeParam);
   }, [router?.query]);
   
   useEffect(() => {
