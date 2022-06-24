@@ -34,7 +34,7 @@ global.fetch = jest.fn(() => Promise.resolve({
 const useQueryMock = jest.fn();
 jest.mock('../../../src/utils/trpc', () => ({
   trpc: {
-    useQuery: () => useQueryMock(),
+    useQuery: (...args: any) => useQueryMock(...args),
   },
 }));
 
@@ -63,6 +63,23 @@ describe('cb', () => {
     global.Storage.prototype.getItem = originalGetItem;
   });
 
+  beforeEach(() => {
+    jest.resetModules();
+  });
+
+  it('does not query api if codeVerifier is null since enabled is false', () => {
+    useQueryMock.mockReturnValue({ isIdle: false, data: { valid: true }, isLoading: false });
+    getItemMock.mockReturnValueOnce(null);
+    render(
+      <Provider store={store}>
+        <AuthProvider>
+          <Cb />
+        </AuthProvider>
+      </Provider>
+    );
+    expect(useQueryMock).toHaveBeenCalledWith(["requestToken", {"code": "", "codeVerifier": "", "locale": ""}], {"enabled": false});
+  });
+
   it('does something', () => {
     useQueryMock.mockReturnValue({ isIdle: false, data: { valid: true }, isLoading: false });
     getItemMock.mockReturnValue(JSON.stringify(['0', '1', '0', '2', '0', '3']));
@@ -73,5 +90,19 @@ describe('cb', () => {
         </AuthProvider>
       </Provider>
     );
+  });
+
+  it('sets code if the router.query contains that param', () => {
+    useRouterMock.mockImplementation(() => ({ pathname: '/home', query: { code: 'test-code' }, asPath: "/home/", push: jest.fn() }));
+    useQueryMock.mockReturnValue({ isIdle: false, data: { valid: true }, isLoading: false });
+    getItemMock.mockReturnValueOnce(null);
+    render(
+      <Provider store={store}>
+        <AuthProvider>
+          <Cb />
+        </AuthProvider>
+      </Provider>
+    );
+    expect(useQueryMock).toHaveBeenCalledWith(["requestToken", {"code": "", "codeVerifier": "", "locale": ""}], {"enabled": false});
   });
 });
