@@ -5,13 +5,11 @@ import { generateCodeVerifier } from '../../../src/misc/oidc';
 import Cb from '../../../src/pages/oidc/cb';
 import { store } from '../../../src/redux/store';
 
-const mockRouter = { pathname: '/home', query: {}, asPath: "/home/", push: jest.fn() };
-
+const useRouterMock = jest.fn();
 jest.mock("next/router", () => ({
-  useRouter() {
-    return mockRouter;
-  },
+  useRouter: () => useRouterMock(),
 }));
+useRouterMock.mockImplementation(() => ({ pathname: '/home', query: {}, asPath: "/home/", push: jest.fn() }));
 
 const mockIntl = { formatMessage: jest.fn() };
 
@@ -66,7 +64,6 @@ describe('cb', () => {
   });
 
   it('does something', () => {
-    const codeVerifier = generateCodeVerifier();
     useQueryMock.mockReturnValue({ isIdle: false, data: { valid: true }, isLoading: false });
     getItemMock.mockReturnValue(JSON.stringify(['0', '1', '0', '2', '0', '3']));
     render(

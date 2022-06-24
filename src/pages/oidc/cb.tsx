@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { parseUser } from '../../misc/auth';
-import { handleAccessToken, setAuth } from '../../redux/features/auth/authSlice';
+import { setAuth } from '../../redux/features/auth/authSlice';
 import { trpc } from '../../utils/trpc';
 
 const Cb: NextPage = () => {
