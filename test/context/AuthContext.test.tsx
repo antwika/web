@@ -20,23 +20,39 @@ jest.mock('../../src/utils/trpc', () => ({
   },
 }));
 
+const getItemMock = jest.fn();
+
+const parseUserMock = jest.fn();
+jest.mock('../../src/misc/auth', () => ({
+  parseUser: () => parseUserMock(),
+}));
+
 describe("AuthContext", () => {
+  let originalGetItem: any;
+
+  beforeAll(() => {
+    originalGetItem = global.Storage.prototype.getItem;
+    global.Storage.prototype.getItem = () => getItemMock();
+  });
+
+  afterAll(() => {
+    global.Storage.prototype.getItem = originalGetItem;
+  });
+
   beforeEach(() => {
     jest.resetModules()
   });
 
-  it("renders its children", () => {
-    store.dispatch(setAuth({
-      status: 'loggedIn', 
-      accessToken: JSON.stringify('an.example.token'),
-      user: {
-        id: 'test-id',
-        firstName: 'Test',
-        lastName: 'Tester',
-        email: 'test@example.com'
-      },
-    }));
+  it("dispatches setAuth", () => {
     useQueryMock.mockReturnValue({ isIdle: false, data: { valid: true }, isLoading: false });
+    getItemMock.mockReturnValue(JSON.stringify('an.example.token'));
+    parseUserMock.mockReturnValue({
+      id: 'FooBar',
+      firstName: 'Foo',
+      lastName: 'Bar',
+      email: 'foo@bar.com',
+    });
+
     render(
       <Provider store={store}>
         <AuthProvider>
@@ -46,6 +62,14 @@ describe("AuthContext", () => {
     );
     const authContext = screen.getByTestId("child");
     expect(authContext).toBeInTheDocument();
+    expect(store.getState().auth.status).toBe('loggedIn');
+    expect(store.getState().auth.accessToken).toBe('an.example.token');
+    expect(store.getState().auth.user).toStrictEqual({
+      id: 'FooBar',
+      firstName: 'Foo',
+      lastName: 'Bar',
+      email: 'foo@bar.com',
+    });
   });
 
   it("does not call router.replace if router is undefined", () => {

@@ -36,6 +36,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   useEffect(() => {
     if (accessToken === '') return;
 
+    console.log('accessToken:', accessToken);
     if (data) {
       if (data.valid) {
         const user = parseUser(accessToken);
@@ -44,7 +45,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         dispatch<any>(doLogout());
       }
     }
-  }, [data]);
+  }, [accessToken, data]);
 
   useEffect(() => {
     if (auth?.status === 'loggedOut') {
