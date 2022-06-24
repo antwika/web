@@ -321,10 +321,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@formatjs/cli@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@formatjs/cli/-/cli-5.0.1.tgz#52d0316df059ca3b631ee88239e347f2e954558b"
-  integrity sha512-gscMwNHaGTgNRYPNUT1gH32iCbOZrhzcvdNc4Wi11LL36M2z+0D57iTWdL0pnaz0zsU0g/vUTlbBg6iVLG8nNg==
+"@formatjs/cli@5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@formatjs/cli/-/cli-5.0.2.tgz#1df27fc52aae0ddcfc34ac0d2d8504fe244e6f0f"
+  integrity sha512-I25CK1NjqBPab50VZxUHeIwYtDx6C/upjuNQCUUD/Ehte0EoGQk2QOkpwqRScuiFVjLiD2dNxGbq+5n5NGRq7g==
 
 "@formatjs/ecma402-abstract@1.11.4":
   version "1.11.4"
@@ -827,10 +827,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@reduxjs/toolkit@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.8.1.tgz#94ee1981b8cf9227cda40163a04704a9544c9a9f"
-  integrity sha512-Q6mzbTpO9nOYRnkwpDlFOAbQnd3g7zj7CtHAZWz5SzE5lcV97Tf8f3SzOO8BoPOMYBFgfZaqTUZqgGu+a0+Fng==
+"@reduxjs/toolkit@1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.8.2.tgz#352fd17bc858af51d21ce8d28183a930cab9e638"
+  integrity sha512-CtPw5TkN1pHRigMFCOS/0qg3b/yfPV5qGCsltVnIz7bx4PKTJlGHYfIxm97qskLknMzuGfjExaYdXJ77QTL0vg==
   dependencies:
     immer "^9.0.7"
     redux "^4.1.2"
@@ -4389,10 +4389,10 @@ react-query@^3.39.1:
     broadcast-channel "^3.4.1"
     match-sorter "^6.0.2"
 
-react-redux@^8.0.1:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-8.0.1.tgz#2bc029f5ada9b443107914c373a2750f6bc0f40c"
-  integrity sha512-LMZMsPY4DYdZfLJgd7i79n5Kps5N9XVLCJJeWAaPYTV+Eah2zTuBjTxKtNEbjiyitbq80/eIkm55CYSLqAub3w==
+react-redux@8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-8.0.2.tgz#bc2a304bb21e79c6808e3e47c50fe1caf62f7aad"
+  integrity sha512-nBwiscMw3NoP59NFCXFf02f8xdo+vSHT/uZ1ldDwF7XaTpzm+Phk97VT4urYBl5TYAPNVaFm12UHAEyzkpNzRA==
   dependencies:
     "@babel/runtime" "^7.12.1"
     "@types/hoist-non-react-statics" "^3.3.1"
