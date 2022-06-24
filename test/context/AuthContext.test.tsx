@@ -13,6 +13,13 @@ jest.mock("next/router", () => ({
   useRouter: () => useRouterMock(),
 }));
 
+const useQueryMock = jest.fn();
+jest.mock('../../src/utils/trpc', () => ({
+  trpc: {
+    useQuery: () => useQueryMock(),
+  },
+}));
+
 describe("AuthContext", () => {
   beforeEach(() => {
     jest.resetModules()
@@ -21,7 +28,7 @@ describe("AuthContext", () => {
   it("renders its children", () => {
     store.dispatch(setAuth({
       status: 'loggedIn', 
-      accessToken: undefined,
+      accessToken: JSON.stringify('an.example.token'),
       user: {
         id: 'test-id',
         firstName: 'Test',
@@ -29,6 +36,7 @@ describe("AuthContext", () => {
         email: 'test@example.com'
       },
     }));
+    useQueryMock.mockReturnValue({ isIdle: false, data: { valid: true }, isLoading: false });
     render(
       <Provider store={store}>
         <AuthProvider>

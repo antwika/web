@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { AuthProvider } from '../../src/context/AuthContext';
-import Index from '../../src/pages/index';
-import { store } from '../../src/redux/store';
+import { AuthProvider } from '../../../src/context/AuthContext';
+import Cb from '../../../src/pages/oidc/cb';
+import { store } from '../../../src/redux/store';
 
 const mockRouter = { pathname: '/home', query: {}, asPath: "/home/", push: jest.fn() };
 
@@ -22,7 +22,7 @@ jest.mock("react-intl", () => ({
 
 const generateAuthUrlMock = jest.fn();
 
-jest.mock('../../src/misc/oidc', () => ({
+jest.mock('../../../src/misc/oidc', () => ({
   generateAuthUrl: () => generateAuthUrlMock(),
 }));
 
@@ -32,19 +32,19 @@ global.fetch = jest.fn(() => Promise.resolve({
 })) as any;
 
 const useQueryMock = jest.fn();
-jest.mock('../../src/utils/trpc', () => ({
+jest.mock('../../../src/utils/trpc', () => ({
   trpc: {
     useQuery: () => useQueryMock(),
   },
 }));
 
-describe('index', () => {
+describe('cb', () => {
   it('does something', () => {
     useQueryMock.mockReturnValue({ isIdle: false, data: { valid: true }, isLoading: false });
     render(
       <Provider store={store}>
         <AuthProvider>
-          <Index />
+          <Cb />
         </AuthProvider>
       </Provider>
     );

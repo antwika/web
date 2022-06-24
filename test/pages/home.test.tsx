@@ -31,8 +31,16 @@ global.fetch = jest.fn(() => Promise.resolve({
   json: async () => jsonMock(),
 })) as any;
 
+const useQueryMock = jest.fn();
+jest.mock('../../src/utils/trpc', () => ({
+  trpc: {
+    useQuery: () => useQueryMock(),
+  },
+}));
+
 describe('index', () => {
   it('does something', () => {
+    useQueryMock.mockReturnValue({ isIdle: false, data: { valid: true }, isLoading: false });
     render(
       <Provider store={store}>
         <AuthProvider>

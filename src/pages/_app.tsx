@@ -1,4 +1,5 @@
 import '../../styles/globals.css'
+import { withTRPC } from '@trpc/next';
 import type { AppProps } from 'next/app'
 import { IntlProvider } from 'react-intl'
 import { useRouter } from 'next/router';
@@ -7,6 +8,7 @@ import { store } from '../redux/store';
 import { Provider } from 'react-redux';
 import { AuthProvider } from '../context/AuthContext';
 import Layout from '../components/Layout';
+import { AppRouter } from './api/trpc/[trpc]';
 
 function _app({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -32,4 +34,26 @@ function _app({ Component, pageProps }: AppProps) {
   </>
 }
 
-export default _app
+export default withTRPC<AppRouter>({
+  config({ ctx }) {
+    /**
+     * If you want to use SSR, you need to use the server's full URL
+     * @link https://trpc.io/docs/ssr
+     */
+    const url = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}/api/trpc`
+      : 'http://localhost:3000/api/trpc';
+
+    return {
+      url,
+      /**
+       * @link https://react-query.tanstack.com/reference/QueryClient
+       */
+      // queryClientConfig: { defaultOptions: { queries: { staleTime: 60 } } },
+    };
+  },
+  /**
+   * @link https://trpc.io/docs/ssr
+   */
+  ssr: true,
+})(_app);

@@ -1,8 +1,11 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { handleAccessToken } from "../redux/features/auth/authSlice";
+import { parseUser } from "../misc/auth";
+import { doLogout, setAuth } from "../redux/features/auth/authSlice";
 import { RootState } from "../redux/store";
+import { trpc } from "../utils/trpc";
 
 const AuthContext = React.createContext({})
 
@@ -15,20 +18,37 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const router = useRouter();
   const auth = useSelector((state: RootState) => state.auth);
+  const [accessToken, setAccessToken] = useState<string>('');
   
+  const { isIdle, data, isLoading } = trpc.useQuery(['verifyToken', { accessToken }], {
+    enabled: accessToken !== '',
+  });
+
   useEffect(() => {
     const item = localStorage.getItem('accessToken');
     if (!item) return;
-    const accessToken = JSON.parse(item);
-    dispatch<any>(handleAccessToken(accessToken));
+    const accessToken = JSON.parse(item) as string;
+    if (accessToken) {
+      setAccessToken(accessToken);
+    }
   }, []);
 
   useEffect(() => {
-    if (!router) return;
-    if (!auth) return;
+    if (accessToken === '') return;
 
-    if (auth.status === 'loggedOut') {
-      if (router.asPath !== '/') {
+    if (data) {
+      if (data.valid) {
+        const user = parseUser(accessToken);
+        dispatch(setAuth({ status: 'loggedIn', accessToken, user }));
+      } else {
+        dispatch<any>(doLogout());
+      }
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (auth?.status === 'loggedOut') {
+      if (router?.asPath !== '/') {
         console.log('Is logged out, redirecting to index');
         router.replace(`/`);
       }
