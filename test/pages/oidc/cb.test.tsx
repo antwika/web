@@ -129,6 +129,43 @@ describe('cb', () => {
     expect(useQueryMock).toHaveBeenCalledWith(["requestToken", {"code": "", "codeVerifier": "", "locale": ""}], {"enabled": false});
   });
 
+  it('throws an error if code if the router.query is of type array', () => {
+    useRouterMock.mockImplementation(() => ({
+      pathname: '/home',
+      query: { code: ['test-code'] },
+      asPath: "/home/",
+      push: (...args: any) => pushMock(...args),
+    }));
+    useQueryMock.mockReturnValue({ isIdle: false, data: { valid: true }, isLoading: false });
+    getItemMock.mockReturnValueOnce(null);
+    expect(() => render(
+      <Provider store={store}>
+        <AuthProvider>
+          <Cb />
+        </AuthProvider>
+      </Provider>
+    )).toThrowError('Unexpected array type in "code" query parameter');
+  });
+
+  it('does not do much if data is undefined', () => {
+    useRouterMock.mockImplementation(() => ({
+      pathname: '/home',
+      query: { code: 'test-code' },
+      asPath: "/home/",
+      push: (...args: any) => pushMock(...args),
+    }));
+    useQueryMock.mockReturnValue({ isIdle: false, data: undefined, isLoading: false });
+    getItemMock.mockReturnValueOnce(null);
+    render(
+      <Provider store={store}>
+        <AuthProvider>
+          <Cb />
+        </AuthProvider>
+      </Provider>
+    );
+    expect(useQueryMock).toHaveBeenCalledWith(["requestToken", {"code": "", "codeVerifier": "", "locale": ""}], {"enabled": false});
+  });
+
   it('does not do much if router is undefined', () => {
     useRouterMock.mockReturnValue(undefined);
     render(

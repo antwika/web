@@ -33,8 +33,6 @@ const Cb: NextPage = () => {
   }, [router?.query]);
   
   useEffect(() => {
-    if (!intl) return;
-    if (!intl.locale) return;
     setLocale(intl.locale);
   }, [intl.locale]);
 
