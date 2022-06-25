@@ -9,7 +9,6 @@ import { useContext } from "react";
 import { ThemeContext, ThemeName } from "../context/ThemeContext";
 import Button from "./ui/Button";
 import { setTheme } from "../redux/features/theme/themeSlice";
-import Logotype from "./Logotype";
 
 type Props = {
   children: any;
@@ -32,7 +31,7 @@ const Layout: React.FC<Props> = ({ children }) => {
         <title>Antwika</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header data-testid='layout-header' className={styles.header} style={{ backgroundColor: theme.primary[20], borderColor: theme.primary[100], borderStyle: 'solid', borderWidth: 0, borderBottomWidth: 1 }}>
+      <header data-testid='layout-header' className={styles.header} style={{ backgroundColor: theme.neutral[300], borderColor: theme.neutral[500], borderStyle: 'solid', borderWidth: 0, borderBottomWidth: 1 }}>
         <div style={{
           display: 'flex',
           flexDirection: 'row',
@@ -43,8 +42,7 @@ const Layout: React.FC<Props> = ({ children }) => {
           <div><Button type="button" preset='small' onClick={() => changeTheme('dark')}>Dark</Button></div>
         </div>
       </header>
-      <main data-testid='layout-main' className={styles.main} style={{ backgroundColor: theme.primary[0] }}>
-        <Logotype />
+      <main data-testid='layout-main' className={styles.main} style={{ backgroundColor: theme.neutral[200] }}>
         {!isLoading && (
           <div data-testid='layout-main-content'>
             {children}

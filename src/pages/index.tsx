@@ -15,7 +15,8 @@ const Index: NextPage = () => {
 
   return (
     <>
-      <h1 style={{ color: theme.primary[100]}}>
+      <Logotype size={128} />
+      <h1 style={{ color: theme.text[400]}}>
         {intl.formatMessage({ id: 'welcome_to' }, { name: 'Antwika' })}
       </h1>
       {auth.user && <UserDetails />}
@@ -25,7 +26,7 @@ const Index: NextPage = () => {
           <div style={{
             padding: '16px',
             lineHeight: 1.5,
-            color: theme.neutral[100],
+            color: theme.text[400],
           }}>
             <div style={{ display: 'flex', justifyContent: 'center'}}>
               <a href="https://github.com/antwika/">

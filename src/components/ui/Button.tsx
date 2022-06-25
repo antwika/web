@@ -21,8 +21,12 @@ const Button: React.FC<Props> = ({ preset, type, children, onClick }) => {
         data-testid='ui-button'
         className={styles.button + ' ' + presetButtonStyle}
         style={{
-          backgroundColor: theme.primary[100],
-          color: theme.neutral[0],
+          backgroundColor: theme.neutral[400],
+          color: theme.text[50],
+          borderColor: theme.neutral[500],
+          borderStyle: 'solid',
+          borderWidth: 1,
+          fontWeight: 'bold',
         }}
         type={type}
         onClick={() => onClick()}

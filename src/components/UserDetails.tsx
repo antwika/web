@@ -11,7 +11,7 @@ const UserDetails = () => {
   const intl = useIntl();
   
   return (
-    <div data-testid='user-details' className={styles.container} style={{ backgroundColor: theme.primary[10], color: theme.primary[100] }}>
+    <div data-testid='user-details' className={styles.container} style={{ backgroundColor: theme.neutral[50], color: theme.text[400], borderRadius: 8 }}>
       <div style={{ padding: 16, paddingTop: 0 }}>
         <h1>
           {intl.formatMessage({ id: 'welcome' })}

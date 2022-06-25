@@ -19,7 +19,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <h1 style={{ color: theme.primary[100]}}>
+      <h1 style={{ color: theme.text[400]}}>
         {intl.formatMessage({ id: 'welcome_to' }, { name: 'Antwika Home' })}
       </h1>
       <UserDetails />

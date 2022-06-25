@@ -31,7 +31,7 @@ const LoginForm: React.FC<Props> = ({ onError }) => {
 
   return (
     <>
-      <div data-testid='login-form' className={styles.loginGridContainer} style={{ backgroundColor: theme.primary[10], color: theme.primary[100] }}>
+      <div data-testid='login-form' className={styles.loginGridContainer} style={{ backgroundColor: theme.neutral[50], borderRadius: 8 }}>
         <Button preset="large" type="submit" onClick={() => onSubmit()}>{intl.formatMessage({ id: 'log_in' })}</Button>
       </div>
     </>
