@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { AuthProvider } from '../context/AuthContext';
 import Layout from '../components/Layout';
 import { AppRouter } from './api/trpc/[trpc]';
+import { ThemeContext, ThemeProvider } from '../context/ThemeContext';
 
 function _app({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -25,9 +26,11 @@ function _app({ Component, pageProps }: AppProps) {
         }}
       >
         <AuthProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <ThemeProvider themeName='dark'>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
         </AuthProvider>
       </IntlProvider>
     </Provider>
