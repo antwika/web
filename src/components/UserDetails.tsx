@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { ThemeContext } from "../context/ThemeContext";
 import { RootState } from "../redux/store";
+import Paper from "./ui/Paper";
 import styles from './UserDetails.module.css';
 
 const UserDetails = () => {
@@ -11,11 +12,8 @@ const UserDetails = () => {
   const intl = useIntl();
   
   return (
-    <div data-testid='user-details' className={styles.container} style={{ backgroundColor: theme.neutral[50], color: theme.text[400], borderRadius: 8 }}>
-      <div style={{ padding: 16, paddingTop: 0 }}>
-        <h1>
-          {intl.formatMessage({ id: 'welcome' })}
-        </h1>
+    <div data-testid='user-details' className={styles.container}>
+      <Paper>
         <div>
           {intl.formatMessage({ id: 'nickname' })}: <strong>{ auth.user?.id }</strong>
         </div>
@@ -28,7 +26,7 @@ const UserDetails = () => {
         <div>
           {intl.formatMessage({ id: 'email' })}: <strong>{ auth.user?.email }</strong>
         </div>
-      </div>
+      </Paper>
     </div>
   );
 };

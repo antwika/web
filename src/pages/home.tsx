@@ -19,12 +19,12 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <h1 style={{ color: theme.text[400]}}>
+      <h1 style={{ color: theme.neutral[50].fg }}>
         {intl.formatMessage({ id: 'welcome_to' }, { name: 'Antwika Home' })}
       </h1>
       <UserDetails />
       <div style={{ display: 'flex', flexDirection: 'row', marginTop: 8 }}>
-        <Button preset="medium" type="submit" onClick={() => logOut()}>{intl.formatMessage({ id: 'log_out' })}</Button>
+        <Button preset="medium" onClick={() => logOut()}>{intl.formatMessage({ id: 'log_out' })}</Button>
       </div>
     </>
   )

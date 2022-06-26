@@ -8,6 +8,11 @@
   width: 100%;
 }
 
+.input::placeholder {
+  color: white;
+  opacity: 0.4;
+}
+
 .label {
   font-size: 12px;
 }

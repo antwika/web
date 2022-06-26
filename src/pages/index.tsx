@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl'
 import { useSelector } from 'react-redux'
 import LoginForm from '../components/LoginForm'
 import Logotype from '../components/Logotype'
+import ThemeList from '../components/ThemeList'
 import UserDetails from '../components/UserDetails'
 import { ThemeContext } from '../context/ThemeContext'
 import { RootState } from '../redux/store'
@@ -16,7 +17,7 @@ const Index: NextPage = () => {
   return (
     <>
       <Logotype size={128} />
-      <h1 style={{ color: theme.text[400]}}>
+      <h1 style={{ color: theme.neutral[50].fg }}>
         {intl.formatMessage({ id: 'welcome_to' }, { name: 'Antwika' })}
       </h1>
       {auth.user && <UserDetails />}
@@ -26,7 +27,7 @@ const Index: NextPage = () => {
           <div style={{
             padding: '16px',
             lineHeight: 1.5,
-            color: theme.text[400],
+            color: theme.neutral[50].fg,
           }}>
             <div style={{ display: 'flex', justifyContent: 'center'}}>
               <a href="https://github.com/antwika/">
@@ -43,6 +44,7 @@ const Index: NextPage = () => {
               </a>
             </div>
           </div>
+          <ThemeList />
         </>
       )}
     </>

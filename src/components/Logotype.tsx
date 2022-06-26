@@ -29,23 +29,23 @@ const Logotype: React.FC<Props> = ({ size }) => {
           <circle cx={b} cy={b} r="68" fill="white" />
         </mask>
         
-        <circle cx={b} cy={b} r={b} fill={theme.neutral[400]} />
+        <circle cx={b} cy={b} r={b} fill={theme.primary[400].bg} />
         <g mask={`url(#${mask1})`}>
           <g transform={`translate(-${c} ${c})`}>
             <g transform={`translate(${b} ${b}) scale(0.4)`}>
-              <rect x={-b} y={-b} width={a} height={a} fill={theme.neutral[700]} transform="rotate(75)" />
+              <rect x={-b} y={-b} width={a} height={a} fill={theme.neutral[200].bg} transform="rotate(75)" />
             </g>
           </g>
           <g transform={`translate(${c} -${c})`}>
             <g transform={`translate(${b} ${b}) scale(0.4)`}>
-              <rect x={-b} y={-b} width={a} height={a} fill={theme.neutral[700]} transform="rotate(75)" />
+              <rect x={-b} y={-b} width={a} height={a} fill={theme.neutral[200].bg} transform="rotate(75)" />
             </g>
           </g>
         </g>
-        <circle cx={b} cy={b} r={d} fill={theme.neutral[400]} />
-        <circle cx={b} cy={b} r={e} fill={theme.neutral[700]} />
-        <circle cx={b} cy={b} r={f} fill={theme.neutral[400]} />
-        <circle cx={b} cy={b} r={g} fill={theme.neutral[50]} />
+        <circle cx={b} cy={b} r={d} fill={theme.primary[600].bg} />
+        <circle cx={b} cy={b} r={e} fill={theme.neutral[200].bg} />
+        <circle cx={b} cy={b} r={f} fill={theme.primary[600].bg} />
+        <circle cx={b} cy={b} r={g} fill={theme.primary[200].bg} />
       </g>
     </svg>
   );

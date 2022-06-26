@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.inner {
+  display: flex;
+  border-width: 1px;
+  border-style: solid;
+  border-left-width: 8px;
+  padding: 8px;
+}

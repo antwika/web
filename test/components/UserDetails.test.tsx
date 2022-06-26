@@ -29,7 +29,6 @@ describe("UserDetails", () => {
     const userDetails = screen.getByTestId("user-details");
     expect(userDetails).toBeInTheDocument();
 
-    expect(mockIntl.formatMessage).toHaveBeenCalledWith({ id: "welcome" });
     expect(mockIntl.formatMessage).toHaveBeenCalledWith({ id: "nickname" });
     expect(mockIntl.formatMessage).toHaveBeenCalledWith({ id: "first_name" });
     expect(mockIntl.formatMessage).toHaveBeenCalledWith({ id: "last_name" });

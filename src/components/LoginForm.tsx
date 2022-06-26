@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { useDispatch } from "react-redux";
 import { setAuth } from "../redux/features/auth/authSlice";
+import Paper from "./ui/Paper";
 
 type Props = {
   onError: (err: unknown) => void,
@@ -31,8 +32,10 @@ const LoginForm: React.FC<Props> = ({ onError }) => {
 
   return (
     <>
-      <div data-testid='login-form' className={styles.loginGridContainer} style={{ backgroundColor: theme.neutral[50], borderRadius: 8 }}>
-        <Button preset="large" type="submit" onClick={() => onSubmit()}>{intl.formatMessage({ id: 'log_in' })}</Button>
+      <div data-testid='login-form' className={styles.container}>
+        <Paper>
+          <Button preset="large" onClick={() => onSubmit()}>{intl.formatMessage({ id: 'log_in' })}</Button>
+        </Paper>
       </div>
     </>
   );

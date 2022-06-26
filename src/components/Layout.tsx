@@ -6,9 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import ActivityIndicatorOverlay from "./ActivityIndicatorOverlay";
 import { useContext } from "react";
-import { ThemeContext, ThemeName } from "../context/ThemeContext";
+import { ThemeContext, ThemeName, themeNames } from "../context/ThemeContext";
 import Button from "./ui/Button";
 import { setTheme } from "../redux/features/theme/themeSlice";
+import Logotype from "./Logotype";
 
 type Props = {
   children: any;
@@ -25,24 +26,27 @@ const Layout: React.FC<Props> = ({ children }) => {
     dispatch(setTheme({ name: themeName }));
   }
 
+  const themeButtons = themeNames.map(themeName => {
+    return (<div key={`themeButton-${themeName}`}><Button preset='small' onClick={() => changeTheme(themeName)}>{themeName}</Button></div>);
+  });
+
   return (
-    <div data-testid='layout'>
+    <div data-testid='layout' className={styles.container} style={{ backgroundColor: theme.neutral[200].bg }}>
       <Head>
         <title>Antwika</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header data-testid='layout-header' className={styles.header} style={{ backgroundColor: theme.neutral[300], borderColor: theme.neutral[500], borderStyle: 'solid', borderWidth: 0, borderBottomWidth: 1 }}>
+      <header data-testid='layout-header' className={styles.header} style={{ backgroundColor: theme.neutral[50].bg, borderColor: theme.neutral[500].bg, borderStyle: 'solid', borderWidth: 0, borderBottomWidth: 1 }}>
         <div style={{
           display: 'flex',
           flexDirection: 'row',
         }}>
           <LocalePicker locales={LOCALES} />
           <div style={{ flexGrow: 1}}></div>
-          <div><Button type="button" preset='small' onClick={() => changeTheme('light')}>Light</Button></div>
-          <div><Button type="button" preset='small' onClick={() => changeTheme('dark')}>Dark</Button></div>
+          {themeButtons}
         </div>
       </header>
-      <main data-testid='layout-main' className={styles.main} style={{ backgroundColor: theme.neutral[200] }}>
+      <main data-testid='layout-main' className={styles.main} style={{ backgroundColor: theme.neutral[200].bg }}>
         {!isLoading && (
           <div data-testid='layout-main-content'>
             {children}

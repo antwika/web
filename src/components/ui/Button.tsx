@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ThemeContext } from '../../context/ThemeContext';
+import { SemanticColorGroupName, ThemeContext } from '../../context/ThemeContext';
 import styles from './Button.module.css';
 
 type Preset = 'large' | 'medium' | 'small';
@@ -7,11 +7,10 @@ type Preset = 'large' | 'medium' | 'small';
 type Props = {
   preset?: Preset,
   children: any,
-  type: 'button' | 'submit' | 'reset' | undefined,
   onClick: () => void,
 }
 
-const Button: React.FC<Props> = ({ preset, type, children, onClick }) => {
+const Button: React.FC<Props> = ({ preset, children, onClick }) => {
   const { theme } = useContext(ThemeContext);
   
   const presetButtonStyle = styles[`preset__button__${preset}`]
@@ -21,14 +20,13 @@ const Button: React.FC<Props> = ({ preset, type, children, onClick }) => {
         data-testid='ui-button'
         className={styles.button + ' ' + presetButtonStyle}
         style={{
-          backgroundColor: theme.neutral[400],
-          color: theme.text[50],
-          borderColor: theme.neutral[500],
+          backgroundColor: theme.secondary[300].bg,
+          color: theme.secondary[300].fg,
+          borderColor: theme.secondary[500].bg,
           borderStyle: 'solid',
-          borderWidth: 1,
+          borderWidth: 2,
           fontWeight: 'bold',
         }}
-        type={type}
         onClick={() => onClick()}
       >
         {children}

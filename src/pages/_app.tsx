@@ -27,7 +27,7 @@ function _app({ Component, pageProps }: AppProps) {
         }}
       >
         <AuthProvider>
-          <ThemeProvider themeName='dark'>
+          <ThemeProvider>
             <Layout>
               <Component {...pageProps} />
             </Layout>

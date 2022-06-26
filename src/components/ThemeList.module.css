@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.theme {
+  display: flex;
+  flex-direction: column;
+}
+
+.paletteRow {
+  display: flex;
+  flex-direction: column;
+}
+
+.swatches {
+  display: flex;
+  flex-direction: row;
+}
+
+.swatch {
+  width: 30px;
+  height: 30px;
+}
+
+.swatch:first-child {
+  border-radius: 0px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.swatch:last-child {
+  border-radius: 0px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}

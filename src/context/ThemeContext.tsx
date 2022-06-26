@@ -2,182 +2,388 @@ import { createContext } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
-export type ThemeName = 'light' | 'dark';
+export type ThemeColorLevel = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+export const themeColorLevels: ThemeColorLevel[] = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+
+export type ThemeName = 'light' | 'dark' | 'stack-overflow';
+export const themeNames: ThemeName[] = ['light', 'dark', 'stack-overflow'];
 
 export type ThemeColorHex = string;
 
 export type ThemeColor = {
-  50: ThemeColorHex,
-  100: ThemeColorHex,
-  200: ThemeColorHex,
-  300: ThemeColorHex,
-  400: ThemeColorHex,
-  500: ThemeColorHex,
-  600: ThemeColorHex,
-  700: ThemeColorHex,
-  800: ThemeColorHex,
-  900: ThemeColorHex,
+  50: { bg: ThemeColorHex, fg: ThemeColorHex },
+  100: { bg: ThemeColorHex, fg: ThemeColorHex },
+  200: { bg: ThemeColorHex, fg: ThemeColorHex },
+  300: { bg: ThemeColorHex, fg: ThemeColorHex },
+  400: { bg: ThemeColorHex, fg: ThemeColorHex },
+  500: { bg: ThemeColorHex, fg: ThemeColorHex },
+  600: { bg: ThemeColorHex, fg: ThemeColorHex },
+  700: { bg: ThemeColorHex, fg: ThemeColorHex },
+  800: { bg: ThemeColorHex, fg: ThemeColorHex },
+  900: { bg: ThemeColorHex, fg: ThemeColorHex },
 };
 
-export type ThemeColorGroupName = 'primary' | 'secondary' | 'tertiary' | 'neutral' | 'semantic';
+export type ThemeColorGroupName ='primary' | 'secondary' | 'tertiary' | 'neutral';
+export const themeColorGroupNames: ThemeColorGroupName[] = ['primary', 'secondary', 'tertiary', 'neutral']
 
+export type SemanticColorGroupName = 'success' | 'warning' | 'error' | 'info' | 'plain';
 export type ThemeScheme = {
-  'text': ThemeColor,
   'primary': ThemeColor,
   'secondary': ThemeColor,
   'tertiary': ThemeColor,
   'neutral': ThemeColor,
   'semantic': {
-    success: ThemeColorHex,
-    warning: ThemeColorHex,
-    error: ThemeColorHex,
-    info: ThemeColorHex,
+    'success': ThemeColor,
+    'warning': ThemeColor,
+    'error': ThemeColor,
+    'info': ThemeColor,
+    'plain': ThemeColor,
   },
 };
 
 export const themes: Record<ThemeName, ThemeScheme> = {
   'light': {
-    'text': {
-      50: '#212121',
-      100: '#424242',
-      200: '#616161',
-      300: '#757575',
-      400: '#9E9E9E',
-      500: '#BDBDBD',
-      600: '#E0E0E0',
-      700: '#EEEEEE',
-      800: '#F5F5F5',
-      900: '#FAFAFA',
-    },
     'primary': {
-      50: '#ECEFF1',
-      100: '#CFD8DC',
-      200: '#B0BEC5',
-      300: '#90A4AE',
-      400: '#78909C', // light text
-      500: '#607D8B', // light text
-      600: '#546E7A', // light text
-      700: '#455A64', // light text
-      800: '#37474F', // light text
-      900: '#263238', // light text
+      50: { bg: '#ECEFF1', fg: 'black' },
+      100: { bg: '#CFD8DC', fg: 'black' },
+      200: { bg: '#B0BEC5', fg: 'black' },
+      300: { bg: '#90A4AE', fg: 'black' },
+      400: { bg: '#78909C', fg: 'white' },
+      500: { bg: '#607D8B', fg: 'white' },
+      600: { bg: '#546E7A', fg: 'white' },
+      700: { bg: '#455A64', fg: 'white' },
+      800: { bg: '#37474F', fg: 'white' },
+      900: { bg: '#263238', fg: 'white' },
     },
     'secondary': {
-      50: '#e9e4e0', // placeholder
-      100: '#c6bbb4', // placeholder
-      200: '#9f8e84', // placeholder
-      300: '#796456', // placeholder
-      400: '#5f4736', // placeholder
-      500: '#452b18', // placeholder
-      600: '#3c2413', // placeholder
-      700: '#2f1a09', // placeholder
-      800: '#240e00', // placeholder
-      900: '#12273C',
+      50: { bg: '#e9e4e0', fg: 'black' },
+      100: { bg: '#c6bbb4', fg: 'black' },
+      200: { bg: '#9f8e84', fg: 'white' },
+      300: { bg: '#796456', fg: 'white' },
+      400: { bg: '#5f4736', fg: 'white' },
+      500: { bg: '#452b18', fg: 'white' },
+      600: { bg: '#3c2413', fg: 'white' },
+      700: { bg: '#2f1a09', fg: 'white' },
+      800: { bg: '#240e00', fg: 'white' },
+      900: { bg: '#1a0000', fg: 'white' },
     },
     'tertiary': {
-      50: '#EFFEE5', // placeholder
-      100: '#E7FED8', // placeholder
-      200: '#D7FBBF', // placeholder
-      300: '#C8F8A8', // placeholder
-      400: '#BAF394', // placeholder
-      500: '#ADEC83', // placeholder
-      600: '#A1E375', // placeholder
-      700: '#95D869', // placeholder
-      800: '#89CA5E', // placeholder
-      900: '#7DBB54', // placeholder
+      50: { bg: '#EFFEE5', fg: 'black' },
+      100: { bg: '#d2ffb4', fg: 'black' },
+      200: { bg: '#aef57e', fg: 'black' },
+      300: { bg: '#91e359', fg: 'black' },
+      400: { bg: '#7ad33e', fg: 'black' },
+      500: { bg: '#6dc92f', fg: 'white' },
+      600: { bg: '#5fbd21', fg: 'white' },
+      700: { bg: '#52a51c', fg: 'white' },
+      800: { bg: '#459114', fg: 'white' },
+      900: { bg: '#397a0f', fg: 'white' },
     },
     'neutral': {
-      50: '#FAFAFA',
-      100: '#F5F5F5',
-      200: '#EEEEEE',
-      300: '#E0E0E0',
-      400: '#BDBDBD',
-      500: '#9E9E9E',
-      600: '#757575', // light text
-      700: '#616161', // light text
-      800: '#424242', // light text
-      900: '#212121', // light text
+      50: { bg: '#FAFAFA', fg: 'black' },
+      100: { bg: '#F5F5F5', fg: 'black' },
+      200: { bg: '#EEEEEE', fg: 'black' },
+      300: { bg: '#E0E0E0', fg: 'black' },
+      400: { bg: '#BDBDBD', fg: 'black' },
+      500: { bg: '#9E9E9E', fg: 'white' },
+      600: { bg: '#757575', fg: 'white' },
+      700: { bg: '#616161', fg: 'white' },
+      800: { bg: '#424242', fg: 'white' },
+      900: { bg: '#212121', fg: 'white' },
     },
     'semantic': {
-      success: 'green',
-      warning: 'yellow',
-      error: 'red',
-      info: 'blue',
-    }
+      'success': {
+        50: { bg: '#f6fff1', fg: 'black' },
+        100: { bg: '#d1fdb5', fg: 'black' },
+        200: { bg: '#b2f189', fg: 'black' },
+        300: { bg: '#8edd5a', fg: 'black' },
+        400: { bg: '#7cd144', fg: 'black' },
+        500: { bg: '#5bbf19', fg: 'white' },
+        600: { bg: '#468f17', fg: 'white' },
+        700: { bg: '#346812', fg: 'white' },
+        800: { bg: '#284e0d', fg: 'white' },
+        900: { bg: '#162a07', fg: 'white' },
+      },
+      'warning': {
+        50: { bg: '#fffae2', fg: 'black' },
+        100: { bg: '#fff4bb', fg: 'black' },
+        200: { bg: '#fdec93', fg: 'black' },
+        300: { bg: '#ffdb28', fg: 'black' },
+        400: { bg: '#f7cf0a', fg: 'black' },
+        500: { bg: '#d5b309', fg: 'white' },
+        600: { bg: '#b19302', fg: 'white' },
+        700: { bg: '#7c6805', fg: 'white' },
+        800: { bg: '#5e4f00', fg: 'white' },
+        900: { bg: '#302800', fg: 'white' },
+      },
+      'error': {
+        50: { bg: '#fff6f5', fg: 'black' },
+        100: { bg: '#ffe9e7', fg: 'black' },
+        200: { bg: '#ffd2ce', fg: 'black' },
+        300: { bg: '#fd897d', fg: 'black' },
+        400: { bg: '#ff3621', fg: 'black' },
+        500: { bg: '#d72513', fg: 'white' },
+        600: { bg: '#c11d0c', fg: 'white' },
+        700: { bg: '#ab1808', fg: 'white' },
+        800: { bg: '#89160a', fg: 'white' },
+        900: { bg: '#5e1009', fg: 'white' },
+      },
+      'info': {
+        50: { bg: '#ddf2ff', fg: 'black' },
+        100: { bg: '#bae1f9', fg: 'black' },
+        200: { bg: '#9acfef', fg: 'black' },
+        300: { bg: '#82c3eb', fg: 'black' },
+        400: { bg: '#67abd3', fg: 'black' },
+        500: { bg: '#5c9ec5', fg: 'white' },
+        600: { bg: '#4c86a9', fg: 'white' },
+        700: { bg: '#3e7191', fg: 'white' },
+        800: { bg: '#315c76', fg: 'white' },
+        900: { bg: '#204358', fg: 'white' },
+      },
+      'plain': {
+        50: { bg: '#FAFAFA', fg: 'black' },
+        100: { bg: '#F5F5F5', fg: 'black' },
+        200: { bg: '#EEEEEE', fg: 'black' },
+        300: { bg: '#E0E0E0', fg: 'black' },
+        400: { bg: '#BDBDBD', fg: 'black' },
+        500: { bg: '#9E9E9E', fg: 'white' },
+        600: { bg: '#757575', fg: 'white' },
+        700: { bg: '#616161', fg: 'white' },
+        800: { bg: '#424242', fg: 'white' },
+        900: { bg: '#212121', fg: 'white' },
+      },
+    },
   },
   'dark': {
-    'text': {
-      50: '#FAFAFA',
-      100: '#F5F5F5',
-      200: '#EEEEEE',
-      300: '#E0E0E0',
-      400: '#BDBDBD',
-      500: '#9E9E9E',
-      600: '#757575',
-      700: '#616161',
-      800: '#424242',
-      900: '#212121',
-    },
     'primary': {
-      50: '#ECEFF1',
-      100: '#CFD8DC',
-      200: '#B0BEC5',
-      300: '#90A4AE',
-      400: '#78909C', // light text
-      500: '#607D8B', // light text
-      600: '#546E7A', // light text
-      700: '#455A64', // light text
-      800: '#37474F', // light text
-      900: '#263238', // light text
+      50: { bg: '#78909C', fg: 'black' },
+      100: { bg: '#607D8B', fg: 'white' },
+      200: { bg: '#546E7A', fg: 'white' },
+      300: { bg: '#455A64', fg: 'white' },
+      400: { bg: '#37474F', fg: 'white' },
+      500: { bg: '#263238', fg: 'white' },
+      600: { bg: '#263238', fg: 'white' },
+      700: { bg: '#1c262a', fg: 'white' },
+      800: { bg: '#141b1e', fg: 'white' },
+      900: { bg: '#0c1012', fg: 'white' },
     },
     'secondary': {
-      50: '#e9e4e0',
-      100: '#c6bbb4',
-      200: '#9f8e84',
-      300: '#796456',
-      400: '#5f4736',
-      500: '#452b18',
-      600: '#3c2413',
-      700: '#2f1a09',
-      800: '#240e00',
-      900: '#1a0000',
+      50: { bg: '#b19a8b', fg: 'black' },
+      100: { bg: '#a18776', fg: 'black' },
+      200: { bg: '#896d5b', fg: 'white' },
+      300: { bg: '#604b3c', fg: 'white' },
+      400: { bg: '#523c2c', fg: 'white' },
+      500: { bg: '#452b18', fg: 'white' },
+      600: { bg: '#3c2413', fg: 'white' },
+      700: { bg: '#2f1a09', fg: 'white' },
+      800: { bg: '#240e00', fg: 'white' },
+      900: { bg: '#1a0000', fg: 'white' },
     },
     'tertiary': {
-      50: '#EFFEE5',
-      100: '#E7FED8',
-      200: '#D7FBBF',
-      300: '#C8F8A8',
-      400: '#BAF394',
-      500: '#ADEC83',
-      600: '#A1E375',
-      700: '#95D869',
-      800: '#89CA5E',
-      900: '#7DBB54',
+      50: { bg: '#EFFEE5', fg: 'black' },
+      100: { bg: '#c4efa8', fg: 'black' },
+      200: { bg: '#a5e57b', fg: 'black' },
+      300: { bg: '#8bcd60', fg: 'black' },
+      400: { bg: '#6fb344', fg: 'black' },
+      500: { bg: '#64ab36', fg: 'white' },
+      600: { bg: '#5ba529', fg: 'white' },
+      700: { bg: '#599b2f', fg: 'white' },
+      800: { bg: '#4d8b25', fg: 'white' },
+      900: { bg: '#427a1d', fg: 'white' },
     },
     'neutral': {
-      50: '#727272',
-      100: '#6a6a6a',
-      200: '#5c5c5c',
-      300: '#484848',
-      400: '#3a3a3a',
-      500: '#2c2c2c',
-      600: '#222222', // light text
-      700: '#1e1e1e', // light text
-      800: '#161616', // light text
-      900: '#212121', // light text
+      50: { bg: '#727272', fg: 'white' },
+      100: { bg: '#6a6a6a', fg: 'white' },
+      200: { bg: '#5c5c5c', fg: 'white' },
+      300: { bg: '#484848', fg: 'white' },
+      400: { bg: '#3a3a3a', fg: 'white' },
+      500: { bg: '#2c2c2c', fg: 'white' },
+      600: { bg: '#222222', fg: 'white' },
+      700: { bg: '#1e1e1e', fg: 'white' },
+      800: { bg: '#161616', fg: 'white' },
+      900: { bg: '#212121', fg: 'white' },
     },
     'semantic': {
-      success: 'green',
-      warning: 'yellow',
-      error: 'red',
-      info: 'blue',
-    }
+      'success': {
+        50: { bg: '#f6fff1', fg: 'black' },
+        100: { bg: '#d1fdb5', fg: 'black' },
+        200: { bg: '#b2f189', fg: 'black' },
+        300: { bg: '#8edd5a', fg: 'black' },
+        400: { bg: '#7cd144', fg: 'black' },
+        500: { bg: '#5bbf19', fg: 'white' },
+        600: { bg: '#468f17', fg: 'white' },
+        700: { bg: '#346812', fg: 'white' },
+        800: { bg: '#284e0d', fg: 'white' },
+        900: { bg: '#162a07', fg: 'white' },
+      },
+      'warning': {
+        50: { bg: '#fffae2', fg: 'black' },
+        100: { bg: '#fff4bb', fg: 'black' },
+        200: { bg: '#fdec93', fg: 'black' },
+        300: { bg: '#ffdb28', fg: 'black' },
+        400: { bg: '#f7cf0a', fg: 'black' },
+        500: { bg: '#d5b309', fg: 'white' },
+        600: { bg: '#b19302', fg: 'white' },
+        700: { bg: '#7c6805', fg: 'white' },
+        800: { bg: '#5e4f00', fg: 'white' },
+        900: { bg: '#302800', fg: 'white' },
+      },
+      'error': {
+        50: { bg: '#fff6f5', fg: 'black' },
+        100: { bg: '#ffe9e7', fg: 'black' },
+        200: { bg: '#ffd2ce', fg: 'black' },
+        300: { bg: '#fd897d', fg: 'black' },
+        400: { bg: '#ff3621', fg: 'black' },
+        500: { bg: '#d72513', fg: 'white' },
+        600: { bg: '#c11d0c', fg: 'white' },
+        700: { bg: '#ab1808', fg: 'white' },
+        800: { bg: '#89160a', fg: 'white' },
+        900: { bg: '#5e1009', fg: 'white' },
+      },
+      'info': {
+        50: { bg: '#ddf2ff', fg: 'black' },
+        100: { bg: '#bae1f9', fg: 'black' },
+        200: { bg: '#9acfef', fg: 'black' },
+        300: { bg: '#82c3eb', fg: 'black' },
+        400: { bg: '#67abd3', fg: 'black' },
+        500: { bg: '#5c9ec5', fg: 'white' },
+        600: { bg: '#4c86a9', fg: 'white' },
+        700: { bg: '#3e7191', fg: 'white' },
+        800: { bg: '#315c76', fg: 'white' },
+        900: { bg: '#204358', fg: 'white' },
+      },
+      'plain': {
+        50: { bg: '#FAFAFA', fg: 'black' },
+        100: { bg: '#F5F5F5', fg: 'black' },
+        200: { bg: '#EEEEEE', fg: 'black' },
+        300: { bg: '#E0E0E0', fg: 'black' },
+        400: { bg: '#BDBDBD', fg: 'black' },
+        500: { bg: '#9E9E9E', fg: 'white' },
+        600: { bg: '#757575', fg: 'white' },
+        700: { bg: '#616161', fg: 'white' },
+        800: { bg: '#424242', fg: 'white' },
+        900: { bg: '#212121', fg: 'white' },
+      },
+    },
+  },
+  'stack-overflow': {
+    'primary': {
+      50: { bg: '#ffcea5', fg: 'black' },
+      100: { bg: '#ffb06f', fg: 'black' },
+      200: { bg: '#ff9946', fg: 'black' },
+      300: { bg: '#f48225', fg: 'black' },
+      400: { bg: '#e16f11', fg: 'white' },
+      500: { bg: '#c95e06', fg: 'white' },
+      600: { bg: '#ad4e00', fg: 'white' },
+      700: { bg: '#873d00', fg: 'white' },
+      800: { bg: '#562700', fg: 'white' },
+      900: { bg: '#3c1b00', fg: 'white' },
+    },
+    'secondary': {
+      50: { bg: '#85cbff', fg: 'black' },
+      100: { bg: '#5bb9ff', fg: 'white' },
+      200: { bg: '#35a7fd', fg: 'white' },
+      300: { bg: '#0a95ff', fg: 'white' },
+      400: { bg: '#0880db', fg: 'white' },
+      500: { bg: '#046cbb', fg: 'white' },
+      600: { bg: '#005799', fg: 'white' },
+      700: { bg: '#004376', fg: 'white' },
+      800: { bg: '#003054', fg: 'white' },
+      900: { bg: '#001c30', fg: 'white' },
+    },
+    'tertiary': {
+      50: { bg: '#baf5ce', fg: 'black' },
+      100: { bg: '#94dfad', fg: 'black' },
+      200: { bg: '#75d194', fg: 'black' },
+      300: { bg: '#5eba7d', fg: 'black' },
+      400: { bg: '#4eab6d', fg: 'white' },
+      500: { bg: '#3e9f5e', fg: 'white' },
+      600: { bg: '#329753', fg: 'white' },
+      700: { bg: '#238342', fg: 'white' },
+      800: { bg: '#176631', fg: 'white' },
+      900: { bg: '#0d441f', fg: 'white' },
+    },
+    'neutral': {
+      50: { bg: '#FAFAFA', fg: 'black' },
+      100: { bg: '#F5F5F5', fg: 'black' },
+      200: { bg: '#EEEEEE', fg: 'black' },
+      300: { bg: '#E0E0E0', fg: 'black' },
+      400: { bg: '#BDBDBD', fg: 'black' },
+      500: { bg: '#9E9E9E', fg: 'white' },
+      600: { bg: '#757575', fg: 'white' },
+      700: { bg: '#616161', fg: 'white' },
+      800: { bg: '#424242', fg: 'white' },
+      900: { bg: '#212121', fg: 'white' },
+    },
+    'semantic': {
+      'success': {
+        50: { bg: '#f6fff1', fg: 'black' },
+        100: { bg: '#d1fdb5', fg: 'black' },
+        200: { bg: '#b2f189', fg: 'black' },
+        300: { bg: '#8edd5a', fg: 'black' },
+        400: { bg: '#7cd144', fg: 'black' },
+        500: { bg: '#5bbf19', fg: 'white' },
+        600: { bg: '#468f17', fg: 'white' },
+        700: { bg: '#346812', fg: 'white' },
+        800: { bg: '#284e0d', fg: 'white' },
+        900: { bg: '#162a07', fg: 'white' },
+      },
+      'warning': {
+        50: { bg: '#fffae2', fg: 'black' },
+        100: { bg: '#fff4bb', fg: 'black' },
+        200: { bg: '#fdec93', fg: 'black' },
+        300: { bg: '#ffdb28', fg: 'black' },
+        400: { bg: '#f7cf0a', fg: 'black' },
+        500: { bg: '#d5b309', fg: 'white' },
+        600: { bg: '#b19302', fg: 'white' },
+        700: { bg: '#7c6805', fg: 'white' },
+        800: { bg: '#5e4f00', fg: 'white' },
+        900: { bg: '#302800', fg: 'white' },
+      },
+      'error': {
+        50: { bg: '#fff6f5', fg: 'black' },
+        100: { bg: '#ffe9e7', fg: 'black' },
+        200: { bg: '#ffd2ce', fg: 'black' },
+        300: { bg: '#fd897d', fg: 'black' },
+        400: { bg: '#ff3621', fg: 'black' },
+        500: { bg: '#d72513', fg: 'white' },
+        600: { bg: '#c11d0c', fg: 'white' },
+        700: { bg: '#ab1808', fg: 'white' },
+        800: { bg: '#89160a', fg: 'white' },
+        900: { bg: '#5e1009', fg: 'white' },
+      },
+      'info': {
+        50: { bg: '#ddf2ff', fg: 'black' },
+        100: { bg: '#bae1f9', fg: 'black' },
+        200: { bg: '#9acfef', fg: 'black' },
+        300: { bg: '#82c3eb', fg: 'black' },
+        400: { bg: '#67abd3', fg: 'black' },
+        500: { bg: '#5c9ec5', fg: 'white' },
+        600: { bg: '#4c86a9', fg: 'white' },
+        700: { bg: '#3e7191', fg: 'white' },
+        800: { bg: '#315c76', fg: 'white' },
+        900: { bg: '#204358', fg: 'white' },
+      },
+      'plain': {
+        50: { bg: '#FAFAFA', fg: 'black' },
+        100: { bg: '#F5F5F5', fg: 'black' },
+        200: { bg: '#EEEEEE', fg: 'black' },
+        300: { bg: '#E0E0E0', fg: 'black' },
+        400: { bg: '#BDBDBD', fg: 'black' },
+        500: { bg: '#9E9E9E', fg: 'white' },
+        600: { bg: '#757575', fg: 'white' },
+        700: { bg: '#616161', fg: 'white' },
+        800: { bg: '#424242', fg: 'white' },
+        900: { bg: '#212121', fg: 'white' },
+      },
+    },
   },
 };
 
 export const ThemeContext = createContext<{ theme: ThemeScheme }>({ theme: themes['light'] });
 
 type Props = {
-  themeName: ThemeName,
+  themeName?: ThemeName,
   children: React.ReactNode;
 }
 
@@ -185,7 +391,7 @@ export const ThemeProvider: React.FC<Props> = ({ themeName, children }) => {
   const theme = useSelector((state: RootState) => state.theme);
   return (
     <div data-testid='theme-provider'>
-      <ThemeContext.Provider value={{ theme: themes[theme.name] }}>
+      <ThemeContext.Provider value={{ theme: themes[themeName || theme.name] }}>
         {children}
       </ThemeContext.Provider>
     </div>

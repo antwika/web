@@ -17,15 +17,20 @@ describe("Layout", () => {
     const layoutMain = within(layout).getByTestId('layout-main');
     expect(layoutMain).toBeInTheDocument();
 
-    const lightThemeButton = within(layoutHeader).getByText('Light');
+    const lightThemeButton = within(layoutHeader).getByText('light');
     expect(lightThemeButton).toBeInTheDocument();
     lightThemeButton.click();
     expect(store.getState().theme.name).toBe('light');
     
-    const darkThemeButton = within(layoutHeader).getByText('Dark');
+    const darkThemeButton = within(layoutHeader).getByText('dark');
     expect(darkThemeButton).toBeInTheDocument();
     darkThemeButton.click();
     expect(store.getState().theme.name).toBe('dark');
+    
+    const stackOverflowThemeButton = within(layoutHeader).getByText('stack-overflow');
+    expect(stackOverflowThemeButton).toBeInTheDocument();
+    stackOverflowThemeButton.click();
+    expect(store.getState().theme.name).toBe('stack-overflow');
   });
 
   it("renders an the main content while logged out", () => {

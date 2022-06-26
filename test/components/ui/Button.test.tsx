@@ -5,7 +5,7 @@ import { within, render, screen } from "@testing-library/react";
 describe("Button", () => {
   it("can clicked and onClick callback is called", () => {
     const onClick = jest.fn();
-    render(<Button type='submit' onClick={onClick}>My button</Button>);
+    render(<Button onClick={onClick}>My button</Button>);
     const button = screen.getByTestId("ui-button");
     expect(button).toBeInTheDocument();
     button.click();
