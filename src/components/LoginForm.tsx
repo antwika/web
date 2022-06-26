@@ -1,11 +1,8 @@
 import { useIntl } from "react-intl";
 import { generateAuthUrl } from "../misc/oidc";
 import Button from "./ui/Button";
-import styles from './LoginForm.module.css'
 import { useRouter } from "next/router";
 import { baseUrl, idpUrl, clientId } from "../misc/config";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
 import { useDispatch } from "react-redux";
 import { setAuth } from "../redux/features/auth/authSlice";
 import Paper from "./ui/Paper";
@@ -15,7 +12,6 @@ type Props = {
 };
 
 const LoginForm: React.FC<Props> = ({ onError }) => {
-  const { theme } = useContext(ThemeContext);
   const router = useRouter();
   const intl = useIntl();
   const dispatch = useDispatch();
@@ -32,7 +28,7 @@ const LoginForm: React.FC<Props> = ({ onError }) => {
 
   return (
     <>
-      <div data-testid='login-form' className={styles.container}>
+      <div data-testid='login-form'>
         <Paper>
           <Button preset="large" onClick={() => onSubmit()}>{intl.formatMessage({ id: 'log_in' })}</Button>
         </Paper>

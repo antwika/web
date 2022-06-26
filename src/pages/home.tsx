@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import { useContext } from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
-import Logotype from '../components/Logotype';
 import Button from '../components/ui/Button';
 import UserDetails from '../components/UserDetails';
 import { ThemeContext } from '../context/ThemeContext';

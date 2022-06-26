@@ -9,7 +9,6 @@ import { useContext } from "react";
 import { ThemeContext, ThemeName, themeNames } from "../context/ThemeContext";
 import Button from "./ui/Button";
 import { setTheme } from "../redux/features/theme/themeSlice";
-import Logotype from "./Logotype";
 
 type Props = {
   children: any;

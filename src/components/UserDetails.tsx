@@ -1,18 +1,14 @@
-import { useContext } from "react";
 import { useIntl } from "react-intl";
 import { useSelector } from "react-redux";
-import { ThemeContext } from "../context/ThemeContext";
 import { RootState } from "../redux/store";
 import Paper from "./ui/Paper";
-import styles from './UserDetails.module.css';
 
 const UserDetails = () => {
-  const { theme } = useContext(ThemeContext);
   const auth = useSelector((state: RootState) => state.auth);
   const intl = useIntl();
   
   return (
-    <div data-testid='user-details' className={styles.container}>
+    <div data-testid='user-details'>
       <Paper>
         <div>
           {intl.formatMessage({ id: 'nickname' })}: <strong>{ auth.user?.id }</strong>

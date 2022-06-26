@@ -6,8 +6,8 @@ import Note from './ui/Note';
 import Paper from './ui/Paper';
 import TextInput from './ui/TextInput';
 
-const ThemePalette = () => {
-  const themePalettes = themeNames.map(themeName => {
+const ThemeList = () => {
+  const themeList = themeNames.map(themeName => {
     const palette = themeColorGroupNames.map(themeColorGroupName => {
       const swatches = themeColorLevels.map((level) => {
         const swatchKey = `${themeName}-${themeColorGroupName}-${level}`;
@@ -110,9 +110,9 @@ const ThemePalette = () => {
 
   return (
     <div className={styles.container}>
-      {themePalettes}
+      {themeList}
     </div>
   );
 }
 
-export default ThemePalette;
+export default ThemeList;

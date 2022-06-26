@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { SemanticColorGroupName, ThemeContext } from '../../context/ThemeContext';
+import { ThemeContext } from '../../context/ThemeContext';
 import styles from './Button.module.css';
 
 type Preset = 'large' | 'medium' | 'small';
@@ -13,7 +13,7 @@ type Props = {
 const Button = ({
     preset = 'medium',
     children,
-    onClick = () => {}
+    onClick = () => { /* NOP */ },
 }: Props) => {
   const { theme } = useContext(ThemeContext);
   
