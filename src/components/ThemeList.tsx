@@ -80,9 +80,9 @@ const ThemePalette = () => {
                 {semanticPalette}
               </div>
               <div style={{ padding: 16 }}>
-                <Button preset='small' onClick={() => {}}>Button</Button>
-                <Button preset='medium' onClick={() => {}}>Button</Button>
-                <Button preset='large' onClick={() => {}}>Button</Button>
+                <Button preset='small'>Button</Button>
+                <Button preset='medium'>Button</Button>
+                <Button preset='large'>Button</Button>
                 <TextInput placeholder='Placeholder...' label='Sample label' warning={'Input validation failure!'}/>
                 <Note type={'success'} />
                 <Note type={'warning'} />

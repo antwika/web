@@ -6,11 +6,15 @@ type Preset = 'large' | 'medium' | 'small';
 
 type Props = {
   preset?: Preset,
-  children: any,
-  onClick: () => void,
+  children: React.ReactNode,
+  onClick?: () => void,
 }
 
-const Button: React.FC<Props> = ({ preset, children, onClick }) => {
+const Button = ({
+    preset = 'medium',
+    children,
+    onClick = () => {}
+}: Props) => {
   const { theme } = useContext(ThemeContext);
   
   const presetButtonStyle = styles[`preset__button__${preset}`]
@@ -33,10 +37,6 @@ const Button: React.FC<Props> = ({ preset, children, onClick }) => {
       </button>
     </>
   )
-}
-
-Button.defaultProps = {
-  preset: 'medium',
 }
 
 export default Button;

@@ -28,6 +28,7 @@ export const themeColorGroupNames: ThemeColorGroupName[] = ['primary', 'secondar
 
 export type SemanticColorGroupName = 'success' | 'warning' | 'error' | 'info' | 'plain';
 export type ThemeScheme = {
+  'name': string,
   'primary': ThemeColor,
   'secondary': ThemeColor,
   'tertiary': ThemeColor,
@@ -43,6 +44,7 @@ export type ThemeScheme = {
 
 export const themes: Record<ThemeName, ThemeScheme> = {
   'light': {
+    name: 'light',
     'primary': {
       50: { bg: '#ECEFF1', fg: 'black' },
       100: { bg: '#CFD8DC', fg: 'black' },
@@ -155,6 +157,7 @@ export const themes: Record<ThemeName, ThemeScheme> = {
     },
   },
   'dark': {
+    name: 'dark',
     'primary': {
       50: { bg: '#78909C', fg: 'black' },
       100: { bg: '#607D8B', fg: 'white' },
@@ -267,6 +270,7 @@ export const themes: Record<ThemeName, ThemeScheme> = {
     },
   },
   'stack-overflow': {
+    name: 'stack-overflow',
     'primary': {
       50: { bg: '#ffcea5', fg: 'black' },
       100: { bg: '#ffb06f', fg: 'black' },
