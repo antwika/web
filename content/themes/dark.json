@@ -1,0 +1,113 @@
+{
+  "name": "dark",
+  "primary": {
+    "50": { "bg": "#78909C", "fg": "black" },
+    "100": { "bg": "#607D8B", "fg": "white" },
+    "200": { "bg": "#546E7A", "fg": "white" },
+    "300": { "bg": "#455A64", "fg": "white" },
+    "400": { "bg": "#37474F", "fg": "white" },
+    "500": { "bg": "#263238", "fg": "white" },
+    "600": { "bg": "#263238", "fg": "white" },
+    "700": { "bg": "#1c262a", "fg": "white" },
+    "800": { "bg": "#141b1e", "fg": "white" },
+    "900": { "bg": "#0c1012", "fg": "white" }
+  },
+  "secondary": {
+    "50": { "bg": "#b19a8b", "fg": "black" },
+    "100": { "bg": "#a18776", "fg": "black" },
+    "200": { "bg": "#896d5b", "fg": "white" },
+    "300": { "bg": "#604b3c", "fg": "white" },
+    "400": { "bg": "#523c2c", "fg": "white" },
+    "500": { "bg": "#452b18", "fg": "white" },
+    "600": { "bg": "#3c2413", "fg": "white" },
+    "700": { "bg": "#2f1a09", "fg": "white" },
+    "800": { "bg": "#240e00", "fg": "white" },
+    "900": { "bg": "#1a0000", "fg": "white" }
+  },
+  "tertiary": {
+    "50": { "bg": "#EFFEE5", "fg": "black" },
+    "100": { "bg": "#c4efa8", "fg": "black" },
+    "200": { "bg": "#a5e57b", "fg": "black" },
+    "300": { "bg": "#8bcd60", "fg": "black" },
+    "400": { "bg": "#6fb344", "fg": "black" },
+    "500": { "bg": "#64ab36", "fg": "white" },
+    "600": { "bg": "#5ba529", "fg": "white" },
+    "700": { "bg": "#599b2f", "fg": "white" },
+    "800": { "bg": "#4d8b25", "fg": "white" },
+    "900": { "bg": "#427a1d", "fg": "white" }
+  },
+  "neutral": {
+    "50": { "bg": "#727272", "fg": "white" },
+    "100": { "bg": "#6a6a6a", "fg": "white" },
+    "200": { "bg": "#5c5c5c", "fg": "white" },
+    "300": { "bg": "#484848", "fg": "white" },
+    "400": { "bg": "#3a3a3a", "fg": "white" },
+    "500": { "bg": "#2c2c2c", "fg": "white" },
+    "600": { "bg": "#222222", "fg": "white" },
+    "700": { "bg": "#1e1e1e", "fg": "white" },
+    "800": { "bg": "#161616", "fg": "white" },
+    "900": { "bg": "#212121", "fg": "white" }
+  },
+  "semantic": {
+    "success": {
+      "50": { "bg": "#f6fff1", "fg": "black" },
+      "100": { "bg": "#d1fdb5", "fg": "black" },
+      "200": { "bg": "#b2f189", "fg": "black" },
+      "300": { "bg": "#8edd5a", "fg": "black" },
+      "400": { "bg": "#7cd144", "fg": "black" },
+      "500": { "bg": "#5bbf19", "fg": "white" },
+      "600": { "bg": "#468f17", "fg": "white" },
+      "700": { "bg": "#346812", "fg": "white" },
+      "800": { "bg": "#284e0d", "fg": "white" },
+      "900": { "bg": "#162a07", "fg": "white" }
+    },
+    "warning": {
+      "50": { "bg": "#fffae2", "fg": "black" },
+      "100": { "bg": "#fff4bb", "fg": "black" },
+      "200": { "bg": "#fdec93", "fg": "black" },
+      "300": { "bg": "#ffdb28", "fg": "black" },
+      "400": { "bg": "#f7cf0a", "fg": "black" },
+      "500": { "bg": "#d5b309", "fg": "white" },
+      "600": { "bg": "#b19302", "fg": "white" },
+      "700": { "bg": "#7c6805", "fg": "white" },
+      "800": { "bg": "#5e4f00", "fg": "white" },
+      "900": { "bg": "#302800", "fg": "white" }
+    },
+    "error": {
+      "50": { "bg": "#fff6f5", "fg": "black" },
+      "100": { "bg": "#ffe9e7", "fg": "black" },
+      "200": { "bg": "#ffd2ce", "fg": "black" },
+      "300": { "bg": "#fd897d", "fg": "black" },
+      "400": { "bg": "#ff3621", "fg": "black" },
+      "500": { "bg": "#d72513", "fg": "white" },
+      "600": { "bg": "#c11d0c", "fg": "white" },
+      "700": { "bg": "#ab1808", "fg": "white" },
+      "800": { "bg": "#89160a", "fg": "white" },
+      "900": { "bg": "#5e1009", "fg": "white" }
+    },
+    "info": {
+      "50": { "bg": "#ddf2ff", "fg": "black" },
+      "100": { "bg": "#bae1f9", "fg": "black" },
+      "200": { "bg": "#9acfef", "fg": "black" },
+      "300": { "bg": "#82c3eb", "fg": "black" },
+      "400": { "bg": "#67abd3", "fg": "black" },
+      "500": { "bg": "#5c9ec5", "fg": "white" },
+      "600": { "bg": "#4c86a9", "fg": "white" },
+      "700": { "bg": "#3e7191", "fg": "white" },
+      "800": { "bg": "#315c76", "fg": "white" },
+      "900": { "bg": "#204358", "fg": "white" }
+    },
+    "plain": {
+      "50": { "bg": "#FAFAFA", "fg": "black" },
+      "100": { "bg": "#F5F5F5", "fg": "black" },
+      "200": { "bg": "#EEEEEE", "fg": "black" },
+      "300": { "bg": "#E0E0E0", "fg": "black" },
+      "400": { "bg": "#BDBDBD", "fg": "black" },
+      "500": { "bg": "#9E9E9E", "fg": "white" },
+      "600": { "bg": "#757575", "fg": "white" },
+      "700": { "bg": "#616161", "fg": "white" },
+      "800": { "bg": "#424242", "fg": "white" },
+      "900": { "bg": "#212121", "fg": "white" }
+    }
+  }
+}
