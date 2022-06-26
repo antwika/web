@@ -4,9 +4,9 @@ import { useIntl } from 'react-intl'
 import { useSelector } from 'react-redux'
 import LoginForm from '../components/LoginForm'
 import Logotype from '../components/Logotype'
-import ThemeList from '../components/ThemeList'
+import ThemePreviewList from '../components/ThemePreviewList'
 import UserDetails from '../components/UserDetails'
-import { ThemeContext } from '../context/ThemeContext'
+import { ThemeContext, themeNames } from '../context/ThemeContext'
 import { RootState } from '../redux/store'
 
 const Index: NextPage = () => {
@@ -44,7 +44,7 @@ const Index: NextPage = () => {
               </a>
             </div>
           </div>
-          <ThemeList />
+          <ThemePreviewList themeNames={themeNames} />
         </>
       )}
     </>
