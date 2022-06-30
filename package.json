@@ -15,7 +15,7 @@
     "release": "standard-version"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "1.8.2",
+    "@reduxjs/toolkit": "1.8.3",
     "@trpc/client": "^9.25.3",
     "@trpc/next": "^9.25.3",
     "@trpc/react": "^9.25.3",
