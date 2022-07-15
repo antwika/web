@@ -18,7 +18,7 @@
     "@reduxjs/toolkit": "1.8.3",
     "@trpc/client": "9.26.0",
     "@trpc/next": "9.26.0",
-    "@trpc/react": "^9.25.3",
+    "@trpc/react": "9.26.0",
     "@trpc/server": "^9.25.3",
     "jose": "4.8.3",
     "next": "12.2.2",
