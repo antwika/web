@@ -948,10 +948,10 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
   integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
 
-"@trpc/client@9.26.0":
-  version "9.26.0"
-  resolved "https://registry.yarnpkg.com/@trpc/client/-/client-9.26.0.tgz#d50a84f2b6a912d3039b52a08d16fde10f4de63c"
-  integrity sha512-zkKXkqZIKseXqybBU8U4odcGCTtDBG/Gu04mfMJ8UyzpG12uzZ5xRkbuufRChgx1oA27/mi3aW/8h6mI34cxyA==
+"@trpc/client@9.26.1":
+  version "9.26.1"
+  resolved "https://registry.yarnpkg.com/@trpc/client/-/client-9.26.1.tgz#e9d40f123f8b6bafe52381558ddf66eee27856c6"
+  integrity sha512-jx5yGtFfYaRQg0t3T9vtNm62/0m500W0nV7Pm3XsWDcbHl+a6Mig1AyU0jA0NbMKW2xBba8ttwaKYSSS6Avxgg==
   dependencies:
     "@babel/runtime" "^7.9.0"
 
