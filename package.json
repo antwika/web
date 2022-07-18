@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "1.8.3",
-    "@trpc/client": "9.26.1",
+    "@trpc/client": "9.26.2",
     "@trpc/next": "9.26.1",
     "@trpc/react": "9.26.1",
     "@trpc/server": "9.26.1",
