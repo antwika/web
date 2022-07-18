@@ -970,10 +970,10 @@
   dependencies:
     "@babel/runtime" "^7.9.0"
 
-"@trpc/server@9.26.1":
-  version "9.26.1"
-  resolved "https://registry.yarnpkg.com/@trpc/server/-/server-9.26.1.tgz#8bae65c58aed74927b348f2297ce1a7c470b62db"
-  integrity sha512-Q2Hi9rq3o6Zb0+BcuUTw/PmvO10hAQYWmD5ZPQH3y+CIm1DsTJaL4YoKq5tHGOv3u9LHIQPhSPCDjY90s+g3tQ==
+"@trpc/server@9.26.2":
+  version "9.26.2"
+  resolved "https://registry.yarnpkg.com/@trpc/server/-/server-9.26.2.tgz#2386d0d0c76b9d6cbdcef3006ea3221729617c21"
+  integrity sha512-J1kP072cVYC5H2qFhiLQ/gV57s0of++9QLLKf9n8mVfx300tecKQW2eu/oFvRCDPRTTQ1prHz9zm15IzLwoRrw==
 
 "@types/aria-query@^4.2.0":
   version "4.2.2"
