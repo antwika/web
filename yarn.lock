@@ -338,10 +338,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@formatjs/cli@6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@formatjs/cli/-/cli-6.0.0.tgz#4e4305d985c8c34786ab66a497fd774a96295181"
-  integrity sha512-/JNpXMxU1Z5qy90FZo+2bSogxHEX+FjuPq4GfEl34XOANtf03yoxkLKZ7HTu1NuObnUcRTczcITVeD+Hwn9LIw==
+"@formatjs/cli@6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@formatjs/cli/-/cli-6.0.1.tgz#dc295e4e726c984e028376759b3a3fef5eb1d933"
+  integrity sha512-Fezqcvn6EAGOLvq1LuBJ8C1dNKb4AKqdL3Bc61uCNQjjvfJv3fsxgLYFV4pkOlLGE/xzXY+xywEkCxN3Eo7Arw==
 
 "@formatjs/ecma402-abstract@1.11.4":
   version "1.11.4"
@@ -4536,10 +4536,10 @@ react-intl@*:
     intl-messageformat "9.13.0"
     tslib "^2.1.0"
 
-react-intl@6.2.7:
-  version "6.2.7"
-  resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-6.2.7.tgz#4e5efd3e3b6c85bb51a68ab7d12b853351dfb941"
-  integrity sha512-3xjK7FZcOcI/uw5c6NrbSXnVqT04Liua5L5K9eeIxIeYYQjcpKl9nF0jx3+sfZv9SqbxnmsFlh1DtKiCyiaZcg==
+react-intl@6.2.8:
+  version "6.2.8"
+  resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-6.2.8.tgz#f61fffc14e69490607d3be9253704ac5afc49d56"
+  integrity sha512-Njzmbmk58rBx6i0bGQbBLYj+KbR9IXbFfbK2u0AFayjDx+VJW30MdJV6aNL9EiPaXfcOcAYm31R777e/UHWeEw==
   dependencies:
     "@formatjs/ecma402-abstract" "1.14.3"
     "@formatjs/icu-messageformat-parser" "2.2.0"
