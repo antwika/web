@@ -47,7 +47,7 @@
     "jest-environment-jsdom": "29.5.0",
     "standard-version": "9.5.0",
     "ts-jest": "29.1.0",
-    "typescript": "5.0.3"
+    "typescript": "5.0.4"
   },
   "repository": "git@github.com:antwika/web.git",
   "bugs": {
