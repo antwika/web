@@ -360,10 +360,10 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.57.0.tgz#a5417ae8427873f1dd08b70b3574b453e67b5f7f"
   integrity sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==
 
-"@formatjs/cli@6.2.8":
-  version "6.2.8"
-  resolved "https://registry.yarnpkg.com/@formatjs/cli/-/cli-6.2.8.tgz#df471f79b30935d6c5e5956ad1e8321076ade767"
-  integrity sha512-sGtFehlHpNL5xbCkP5/zz5lgIVPPdQFqhY6Pcc9+whpBawln6VDzbaGA5ttWjtBDVVKZbEukiCFk8HW2H0OVxQ==
+"@formatjs/cli@6.2.9":
+  version "6.2.9"
+  resolved "https://registry.yarnpkg.com/@formatjs/cli/-/cli-6.2.9.tgz#b5a07c377a91165feeec964b7097794af89f8cca"
+  integrity sha512-YH09kY6oufPdNDIwva/rC7wyg/ptJG6hRZ768eJEafiBR5R1VV1pKFmx106FV5WT7nzBm8Xf4Td+8+Mu+DtQsg==
 
 "@formatjs/ecma402-abstract@1.11.4":
   version "1.11.4"
@@ -4546,10 +4546,10 @@ react-intl@*:
     intl-messageformat "9.13.0"
     tslib "^2.1.0"
 
-react-intl@6.6.3:
-  version "6.6.3"
-  resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-6.6.3.tgz#ac2dd81e7ec7003195163970ebf1db4f1af03b9d"
-  integrity sha512-vLKI0f+Q3pXD5szmCUPikTY7CJDPtxCBMG5YABQZ3IGEKzNB47zlvXyasUFfT25zpgQXeOfhRCdx4q6ubuR6bA==
+react-intl@6.6.4:
+  version "6.6.4"
+  resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-6.6.4.tgz#4322942dbaf4f6edd3a227dc5e20d768ef071541"
+  integrity sha512-bD+7hVTX3zBFI3z/ffIVZrNkCVK0/sQguQ/DqW5uZ6JFWsuiwOieVcLnmtFiUgMQZLdmwNl2Ur5c10RaO7NWBQ==
   dependencies:
     "@formatjs/ecma402-abstract" "1.18.2"
     "@formatjs/icu-messageformat-parser" "2.7.6"
