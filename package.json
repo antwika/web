@@ -34,7 +34,7 @@
   "devDependencies": {
     "@formatjs/cli": "6.2.10",
     "@testing-library/jest-dom": "6.4.5",
-    "@testing-library/react": "15.0.6",
+    "@testing-library/react": "15.0.7",
     "@types/node": "20.12.10",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
