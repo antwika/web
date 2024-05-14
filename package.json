@@ -35,7 +35,7 @@
     "@formatjs/cli": "6.2.10",
     "@testing-library/jest-dom": "6.4.5",
     "@testing-library/react": "15.0.7",
-    "@types/node": "20.12.11",
+    "@types/node": "20.12.12",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "@types/react-intl": "3.0.0",
