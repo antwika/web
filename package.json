@@ -32,7 +32,7 @@
     "zod": "3.24.1"
   },
   "devDependencies": {
-    "@formatjs/cli": "6.4.0",
+    "@formatjs/cli": "6.4.2",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "15.0.7",
     "@types/node": "22.10.7",
