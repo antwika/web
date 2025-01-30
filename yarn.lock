@@ -360,10 +360,10 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.57.1.tgz#de633db3ec2ef6a3c89e2f19038063e8a122e2c2"
   integrity sha512-d9zaMRSTIKDLhctzH12MtXvJKSSUhaHcjV+2Z+GK+EEY7XKpP5yR4x+N3TAcHTcu963nIr+TMcCb4DBCYX1z6Q==
 
-"@formatjs/cli@6.5.0":
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/@formatjs/cli/-/cli-6.5.0.tgz#7101e9fb7f9dde3f5341cb5d050708c1ec011fb2"
-  integrity sha512-FgcR1SACqSqWzU5YhuZZQkWTRrLQs0taV3g8rpBlgL7WW6gFVIwkPAuQdqOIME1wEtQYjK5KaZ0R+D8M7hRzLA==
+"@formatjs/cli@6.5.1":
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/@formatjs/cli/-/cli-6.5.1.tgz#abfa8ec311683441c527cd5a3f28b4f911ff8310"
+  integrity sha512-JptxQysoKiVZkGfd1u9GTlt88IQ1NUCUpxWI7Obkr7cZAupIBT5QbyL1NPq3UAyTgXODQ+09IUwZhJwVExW41g==
 
 "@formatjs/ecma402-abstract@1.11.4":
   version "1.11.4"
@@ -1170,6 +1170,13 @@
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
+    csstype "^3.0.2"
+
+"@types/react@16 || 17 || 18 || 19":
+  version "19.0.8"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-19.0.8.tgz#7098e6159f2a61e4f4cef2c1223c044a9bec590e"
+  integrity sha512-9P/o1IGdfmQxrujGbIMDyYaaCykhLKc0NGCtYcECNUr9UAaDe4gwvV9bR6tvd5Br1SG0j+PBpbKr2UYY8CwqSw==
+  dependencies:
     csstype "^3.0.2"
 
 "@types/react@18.2.21":
@@ -4600,16 +4607,16 @@ react-intl@*:
     intl-messageformat "9.13.0"
     tslib "^2.1.0"
 
-react-intl@7.1.3:
-  version "7.1.3"
-  resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-7.1.3.tgz#0211c1f86617ee84a4afff3a5190314ca9b8d595"
-  integrity sha512-CrlVW+espQXVTgydgeZkPztWAtST2SvCWKr7FxZytGdQgx7YUemqNrHIUa/YxUbpcRMHnjPI4RHsQf/tEoRMhA==
+react-intl@7.1.5:
+  version "7.1.5"
+  resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-7.1.5.tgz#086c1b7cfb00ab7c9f62241162aca86520a5dc4c"
+  integrity sha512-cVvsVdaOnZ85XBXU0Lc2PVGNhGlzl4UBV+aWAGe/zrV5Xr+CEW7izUsAp/fIuwvCsJl9R+aokppm+P7cdhnpUA==
   dependencies:
     "@formatjs/ecma402-abstract" "2.3.2"
     "@formatjs/icu-messageformat-parser" "2.11.0"
     "@formatjs/intl" "3.1.3"
     "@types/hoist-non-react-statics" "3"
-    "@types/react" "16 || 17 || 18"
+    "@types/react" "16 || 17 || 18 || 19"
     hoist-non-react-statics "3"
     intl-messageformat "10.7.14"
     tslib "2"
