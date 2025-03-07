@@ -28,7 +28,7 @@
     "react-query": "3.39.3",
     "react-redux": "9.2.0",
     "react-router-dom": "7.3.0",
-    "uuid": "11.0.5",
+    "uuid": "11.1.0",
     "zod": "3.24.2"
   },
   "devDependencies": {
